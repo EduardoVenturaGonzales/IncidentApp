@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="270dp"
+    android:viewportWidth="1448"
+    android:viewportHeight="1086">
+
+    <!-- red shield 1 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 729 139 L 697 151 L 557 210 L 549 212 L 448 254 L 448 463 L 452 496 L 460 530 L 469 555 L 481 579 L 499 607 L 514 625 L 537 648 L 576 678 L 591 602 L 586 599 L 563 576 L 550 559 L 533 528 L 523 499 L 517 468 L 514 426 L 515 300 L 521 296 L 727 211 L 729 176 Z" />
+    <!-- red shield 3 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 595 688 L 595 689 L 605 694 L 607 694 L 663 721 L 732 752 L 733 676 L 666 640 L 662 641 Z" />
+    <!-- dark shield 1 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 730 139 L 729 210 L 741 216 L 821 249 L 831 232 L 840 221 L 857 205 L 867 198 L 867 197 L 859 193 L 843 187 L 834 182 Z" />
+    <!-- dark shield 58 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 1023 375 L 1011 386 L 988 402 L 970 411 L 951 417 L 949 463 L 946 485 L 937 516 L 925 542 L 915 558 L 898 580 L 880 598 L 865 610 L 842 625 L 810 642 L 734 676 L 733 752 L 778 730 L 826 709 L 881 680 L 907 662 L 924 648 L 948 625 L 961 610 L 976 589 L 989 567 L 1001 541 L 1010 514 L 1016 486 L 1020 456 Z" />
+    <!-- chat bubble -->
+    <path
+        android:fillColor="#E5EAEE"
+        android:fillType="evenOdd"
+        android:pathData="M 808 293 L 735 262 L 726 260 L 689 276 L 589 315 L 573 325 L 558 342 L 551 360 L 549 379 L 549 460 L 553 496 L 561 524 L 569 540 L 581 557 L 597 572 L 591 611 L 576 685 L 695 605 L 781 604 L 805 601 L 822 597 L 850 585 L 865 575 L 883 558 L 896 540 L 907 516 L 913 493 L 917 457 L 917 419 L 894 415 L 872 406 L 857 397 L 837 379 L 824 362 L 814 341 L 808 315 Z M 601 509 L 604 502 L 611 495 L 616 493 L 731 493 L 737 496 L 743 502 L 745 506 L 745 516 L 742 522 L 738 526 L 729 530 L 617 530 L 610 527 L 603 520 L 601 514 Z M 601 458 L 604 449 L 610 443 L 617 440 L 849 440 L 856 443 L 862 449 L 865 460 L 862 468 L 856 474 L 849 477 L 617 477 L 611 475 L 603 467 Z M 602 401 L 605 395 L 610 390 L 616 387 L 809 387 L 815 390 L 821 397 L 822 410 L 816 419 L 805 424 L 619 424 L 612 422 L 605 416 L 602 410 Z" />
+    <!-- chat line 59 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 603 401 L 603 410 L 606 416 L 612 421 L 619 423 L 805 423 L 816 418 L 821 410 L 820 397 L 815 391 L 809 388 L 616 388 L 610 391 L 606 395 Z" />
+    <!-- chat line 60 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 602 458 L 604 467 L 607 471 L 617 476 L 849 476 L 856 473 L 861 468 L 864 460 L 861 449 L 856 444 L 849 441 L 617 441 L 610 444 L 605 449 Z" />
+    <!-- chat line 61 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 602 509 L 602 514 L 604 520 L 610 526 L 617 529 L 729 529 L 738 525 L 741 522 L 744 516 L 744 506 L 742 502 L 737 497 L 731 494 L 616 494 L 611 496 L 605 502 Z" />
+    <!-- alert circle -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 920 195 L 905 198 L 883 207 L 865 219 L 848 236 L 839 249 L 828 275 L 825 291 L 825 315 L 829 334 L 835 349 L 847 367 L 863 383 L 883 395 L 903 402 L 914 404 L 939 404 L 954 401 L 978 391 L 992 382 L 1011 364 L 1020 351 L 1030 329 L 1034 310 L 1034 285 L 1029 263 L 1020 244 L 1009 229 L 991 213 L 977 205 L 959 198 L 944 195 Z M 922 332 L 934 332 L 938 334 L 944 340 L 947 346 L 947 356 L 945 361 L 938 368 L 931 371 L 923 371 L 915 367 L 911 363 L 907 353 L 907 349 L 910 341 L 917 334 Z M 927 227 L 935 228 L 939 230 L 946 237 L 948 241 L 948 245 L 949 246 L 948 248 L 948 256 L 947 257 L 947 264 L 946 265 L 945 278 L 944 279 L 943 293 L 942 294 L 941 308 L 939 313 L 934 318 L 929 320 L 926 320 L 921 318 L 915 311 L 914 297 L 913 296 L 913 289 L 912 288 L 912 280 L 911 279 L 911 272 L 910 271 L 910 264 L 909 263 L 909 255 L 908 254 L 908 243 L 912 235 L 916 231 L 922 228 L 926 228 Z" />
+    <!-- exclamation 1 -->
+    <path
+        android:fillColor="#E5EAEE"
+        android:fillType="evenOdd"
+        android:pathData="M 923 229 L 918 231 L 912 237 L 909 244 L 909 251 L 910 252 L 910 260 L 911 261 L 911 268 L 912 269 L 912 277 L 913 278 L 913 285 L 914 286 L 914 293 L 915 294 L 916 310 L 918 314 L 921 317 L 923 318 L 931 318 L 932 317 L 934 317 L 939 311 L 940 299 L 941 298 L 941 292 L 942 291 L 942 284 L 943 283 L 943 277 L 944 276 L 944 269 L 945 268 L 946 255 L 947 254 L 947 242 L 944 236 L 937 230 L 935 230 L 934 229 Z" />
+    <!-- exclamation 3 -->
+    <path
+        android:fillColor="#E5EAEE"
+        android:fillType="evenOdd"
+        android:pathData="M 924 333 L 916 336 L 912 340 L 909 346 L 909 356 L 911 361 L 917 367 L 921 369 L 929 370 L 939 366 L 942 363 L 946 355 L 946 347 L 942 339 L 937 335 L 932 334 L 931 333 Z" />
+    <!-- Incident letter 5 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 95 786 L 94 787 L 94 936 L 95 937 L 139 937 L 141 935 L 141 910 L 140 909 L 140 880 L 141 879 L 140 816 L 141 815 L 141 795 L 140 794 L 140 786 Z" />
+    <!-- Incident letter 8 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 269 834 L 262 827 L 246 820 L 222 821 L 209 828 L 201 837 L 200 824 L 198 822 L 157 823 L 156 936 L 200 936 L 200 871 L 204 863 L 212 857 L 223 857 L 231 865 L 232 936 L 276 936 L 276 854 L 274 844 Z" />
+    <!-- Incident letter 9 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 319 824 L 306 831 L 297 839 L 290 848 L 285 859 L 282 872 L 282 887 L 284 897 L 290 911 L 295 918 L 306 928 L 319 935 L 329 938 L 356 939 L 366 937 L 379 931 L 394 917 L 399 909 L 399 906 L 367 890 L 365 890 L 357 900 L 351 903 L 338 902 L 329 894 L 326 888 L 326 871 L 329 864 L 334 859 L 340 856 L 354 857 L 363 865 L 364 868 L 367 868 L 397 853 L 399 851 L 397 846 L 385 832 L 371 824 L 362 821 L 333 820 Z" />
+    <!-- Incident letter 4 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 423 766 L 413 770 L 407 776 L 403 784 L 403 795 L 406 803 L 409 807 L 413 810 L 423 814 L 432 814 L 433 813 L 439 812 L 445 808 L 449 803 L 452 795 L 452 785 L 449 777 L 442 770 L 432 766 Z" />
+    <!-- Incident letter 12 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 407 822 L 406 823 L 406 936 L 407 937 L 448 937 L 449 936 L 449 823 L 448 822 Z" />
+    <!-- Incident letter 6 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 589 786 L 546 786 L 544 834 L 538 828 L 527 822 L 520 820 L 502 820 L 485 826 L 471 838 L 462 853 L 459 863 L 458 891 L 462 906 L 466 914 L 477 927 L 492 936 L 504 939 L 519 939 L 527 937 L 537 932 L 544 925 L 545 936 L 547 937 L 589 936 Z M 517 856 L 530 856 L 531 857 L 533 857 L 540 862 L 543 866 L 546 873 L 546 885 L 543 892 L 537 899 L 528 903 L 519 903 L 512 900 L 505 893 L 502 887 L 502 881 L 501 880 L 501 878 L 502 877 L 502 871 L 505 865 L 511 859 Z" />
+    <!-- Incident letter 10 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 625 829 L 609 843 L 601 857 L 598 867 L 597 885 L 599 896 L 609 916 L 625 930 L 638 936 L 652 939 L 676 939 L 686 937 L 704 929 L 715 919 L 717 914 L 689 896 L 683 902 L 676 906 L 658 907 L 650 904 L 643 897 L 642 894 L 643 890 L 724 890 L 725 874 L 723 863 L 718 850 L 710 839 L 698 829 L 688 824 L 673 820 L 650 820 L 638 823 Z M 641 867 L 641 865 L 644 858 L 649 853 L 655 850 L 668 850 L 669 851 L 671 851 L 679 858 L 682 866 L 680 868 L 642 868 Z" />
+    <!-- Incident letter 11 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 842 831 L 836 826 L 825 821 L 803 820 L 789 825 L 783 829 L 776 837 L 775 824 L 773 822 L 733 822 L 731 825 L 731 935 L 733 937 L 775 936 L 776 869 L 782 860 L 788 857 L 798 857 L 805 863 L 807 868 L 807 936 L 850 937 L 851 851 L 849 843 Z" />
+    <!-- Incident letter 7 -->
+    <path
+        android:fillColor="#E70505"
+        android:fillType="evenOdd"
+        android:pathData="M 868 794 L 867 795 L 867 821 L 858 823 L 858 856 L 867 858 L 867 903 L 871 919 L 880 930 L 893 937 L 903 939 L 920 939 L 932 937 L 935 935 L 935 902 L 933 901 L 928 903 L 919 903 L 912 898 L 911 858 L 936 856 L 936 831 L 935 830 L 936 824 L 911 821 L 910 794 Z" />
+    <!-- App letter 77 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 1000 787 L 955 896 L 940 936 L 985 936 L 993 914 L 996 910 L 1048 910 L 1052 917 L 1058 936 L 1104 936 L 1090 898 L 1083 884 L 1076 864 L 1044 788 Z M 1022 834 L 1028 847 L 1037 876 L 1036 877 L 1007 877 L 1006 875 L 1009 869 L 1015 849 L 1017 846 L 1019 839 Z" />
+    <!-- App letter 78 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 1206 830 L 1193 824 L 1176 822 L 1158 828 L 1150 836 L 1148 824 L 1109 825 L 1109 971 L 1149 970 L 1150 924 L 1162 934 L 1175 937 L 1184 937 L 1196 934 L 1204 930 L 1219 916 L 1225 904 L 1228 894 L 1229 869 L 1225 854 L 1221 846 L 1215 838 Z M 1164 856 L 1174 856 L 1180 859 L 1186 865 L 1189 872 L 1189 877 L 1190 878 L 1189 887 L 1186 893 L 1179 900 L 1175 902 L 1171 902 L 1170 903 L 1163 902 L 1159 900 L 1151 892 L 1148 885 L 1148 874 L 1151 866 L 1157 859 Z" />
+    <!-- App letter 79 -->
+    <path
+        android:fillColor="#222224"
+        android:fillType="evenOdd"
+        android:pathData="M 1329 828 L 1315 823 L 1296 823 L 1284 828 L 1276 836 L 1274 824 L 1236 824 L 1236 971 L 1275 971 L 1275 924 L 1290 935 L 1299 937 L 1310 937 L 1322 934 L 1332 929 L 1346 914 L 1354 893 L 1354 866 L 1351 854 L 1347 846 L 1341 838 Z M 1290 856 L 1299 856 L 1300 857 L 1305 858 L 1311 864 L 1313 867 L 1313 869 L 1315 873 L 1315 886 L 1314 887 L 1314 889 L 1311 894 L 1305 900 L 1301 902 L 1289 902 L 1285 900 L 1279 895 L 1275 888 L 1275 885 L 1274 884 L 1274 874 L 1277 866 L 1282 860 Z" />
+
+</vector>
