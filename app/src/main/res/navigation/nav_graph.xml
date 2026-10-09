@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.incidentapp.LoginFragment"
+        android:name="com.example.incidentapp.ui.login.LoginFragment"
         android:label="@string/inicio_sesion"
         tools:layout="@layout/fragment_login">
 
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.incidentapp.HomeFragment"
+        android:name="com.example.incidentapp.ui.home.HomeFragment"
         android:label="@string/inicio"
         tools:layout="@layout/fragment_home">
 
@@ -29,6 +29,49 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_listaIncidentesFragment"
+            app:destination="@id/listaIncidentesFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_nuevoIncidenteFragment"
+            app:destination="@id/nuevoIncidenteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listaIncidentesFragment"
+        android:name="com.example.incidentapp.ui.incidentes.ListaIncidentesFragment"
+        android:label="Incidentes"
+        tools:layout="@layout/fragment_lista_incidentes">
+
+        <action
+            android:id="@+id/action_listaIncidentesFragment_to_detalleIncidenteFragment"
+            app:destination="@id/detalleIncidenteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nuevoIncidenteFragment"
+        android:name="com.example.incidentapp.ui.incidentes.NuevoIncidenteFragment"
+        android:label="Nuevo incidente"
+        tools:layout="@layout/fragment_nuevo_incidente">
+
+        <action
+            android:id="@+id/action_nuevoIncidenteFragment_to_detalleIncidenteFragment"
+            app:destination="@id/detalleIncidenteFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleIncidenteFragment"
+        android:name="com.example.incidentapp.ui.incidentes.DetalleIncidenteFragment"
+        android:label="Detalle"
+        tools:layout="@layout/fragment_detalle_incidente">
+
+        <argument
+            android:name="id_incidente"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 </navigation>
