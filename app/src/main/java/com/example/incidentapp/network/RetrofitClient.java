@@ -9,11 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitClient {
 
-    /*
-     * Emulador Android -> PC local: 10.0.2.2
-     * Al publicar el backend en PythonAnywhere cambia solo esta URL.
-     */
-    public static final String BASE_URL = "http://10.1.220.178:5000/";
+    // Dominio público de la API Flask en PythonAnywhere.
+    // Retrofit exige que la URL base termine en /.
+    public static final String BASE_URL = "https://incidentappg1.pythonanywhere.com/";
 
     private static ApiService apiService;
 
@@ -41,6 +39,9 @@ public final class RetrofitClient {
                     .addInterceptor(logging)
                     .build();
 
+            // Igual que en clase: Retrofit.Builder + GsonConverterFactory.
+            // Aquí agregamos el cliente OkHttp porque el caso práctico exige
+            // enviar automáticamente el JWT en las peticiones protegidas.
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)

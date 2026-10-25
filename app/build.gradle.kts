@@ -47,8 +47,9 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
 
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
+    implementation(libs.gson)
+    implementation(libs.retrofit.v2110)
+    implementation(libs.retrofit2.converter.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.glide)
 

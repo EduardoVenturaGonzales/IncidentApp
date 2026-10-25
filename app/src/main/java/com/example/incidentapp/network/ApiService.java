@@ -31,8 +31,6 @@ public interface ApiService {
     @POST("auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
-    @POST("auth/fcm-token")
-    Call<MensajeResponse> registrarFcmToken(@Body java.util.Map<String, Object> body);
 
     @GET("incidentes")
     Call<IncidentesResponse> obtenerIncidentes(
