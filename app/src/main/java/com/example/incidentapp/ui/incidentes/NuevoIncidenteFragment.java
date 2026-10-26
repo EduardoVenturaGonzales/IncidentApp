@@ -19,6 +19,7 @@ import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentNuevoIncidenteBinding;
 import com.example.incidentapp.model.Activo;
 import com.example.incidentapp.model.Sucursal;
+import com.example.incidentapp.session.SessionManager;
 import com.example.incidentapp.util.MultipartUtils;
 import com.example.incidentapp.viewmodel.NuevoIncidenteViewModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -100,6 +101,18 @@ public class NuevoIncidenteFragment extends Fragment {
                     android.R.layout.simple_dropdown_item_1line,
                     nombres
             ));
+
+            // La API devuelve únicamente la sucursal asociada al usuario autenticado.
+            // Si solo existe una, la seleccionamos automáticamente y evitamos que el
+            // solicitante intente registrar el incidente en otra sede.
+            if (sucursales.size() == 1) {
+                binding.actSucursal.setText(sucursales.get(0).getNombre(), false);
+                binding.actSucursal.setEnabled(false);
+                binding.tilSucursal.setHelperText("Sucursal asignada a tu usuario");
+            } else {
+                binding.actSucursal.setEnabled(true);
+                binding.tilSucursal.setHelperText(null);
+            }
         });
 
         viewModel.getActivo().observe(getViewLifecycleOwner(), activo -> {
@@ -173,6 +186,11 @@ public class NuevoIncidenteFragment extends Fragment {
         Sucursal sucursal = buscarSucursal(sucursalNombre);
         if (sucursal == null) {
             binding.tilSucursal.setError("Selecciona una sucursal");
+            return;
+        }
+
+        if (sucursal.getId() != SessionManager.getInstance().getIdSucursal()) {
+            binding.tilSucursal.setError("Solo puedes reportar incidentes en tu sucursal");
             return;
         }
 

@@ -11,9 +11,13 @@ public class Usuario {
     @SerializedName("id_empresa")
     private int idEmpresa;
 
+    @SerializedName("id_sucursal")
+    private int idSucursal;
+
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }
     public String getRol() { return rol; }
     public int getIdEmpresa() { return idEmpresa; }
+    public int getIdSucursal() { return idSucursal; }
 }

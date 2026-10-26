@@ -222,7 +222,7 @@ public class DetalleIncidenteFragment extends Fragment {
 
     private void mostrarDialogoTecnicos(List<Tecnico> tecnicos) {
         if (tecnicos.isEmpty()) {
-            Snackbar.make(binding.getRoot(), "No hay técnicos disponibles", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(binding.getRoot(), "No hay técnicos disponibles en esta sucursal", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
@@ -234,7 +234,7 @@ public class DetalleIncidenteFragment extends Fragment {
         final int[] seleccionado = {0};
 
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Asignar técnico")
+                .setTitle("Asignar técnico de esta sucursal")
                 .setSingleChoiceItems(nombres, 0, (dialog, which) -> seleccionado[0] = which)
                 .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Asignar", (dialog, which) -> {

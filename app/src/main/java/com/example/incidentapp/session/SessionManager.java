@@ -15,6 +15,7 @@ public class SessionManager {
     private static final String KEY_CORREO = "correo";
     private static final String KEY_ROL = "rol";
     private static final String KEY_ID_EMPRESA = "id_empresa";
+    private static final String KEY_ID_SUCURSAL = "id_sucursal";
 
     private static SessionManager instance;
     private final SharedPreferences preferences;
@@ -39,6 +40,7 @@ public class SessionManager {
 
     public void guardarSesion(LoginResponse respuesta) {
         Usuario usuario = respuesta.getUsuario();
+
         preferences.edit()
                 .putString(KEY_TOKEN, respuesta.getAccessToken())
                 .putInt(KEY_ID, usuario == null ? 0 : usuario.getId())
@@ -46,6 +48,7 @@ public class SessionManager {
                 .putString(KEY_CORREO, usuario == null ? "" : usuario.getCorreo())
                 .putString(KEY_ROL, usuario == null ? "" : usuario.getRol())
                 .putInt(KEY_ID_EMPRESA, usuario == null ? 0 : usuario.getIdEmpresa())
+                .putInt(KEY_ID_SUCURSAL, usuario == null ? 0 : usuario.getIdSucursal())
                 .apply();
     }
 
@@ -55,7 +58,13 @@ public class SessionManager {
 
     public boolean haySesion() {
         String token = getToken();
-        return token != null && !token.trim().isEmpty();
+
+        // Desde la actualización por sucursales, una sesión válida también debe
+        // conocer la sucursal del usuario. Esto obliga a iniciar sesión nuevamente
+        // si la app conservaba una sesión antigua creada antes de este cambio.
+        return token != null
+                && !token.trim().isEmpty()
+                && getIdSucursal() > 0;
     }
 
     public String getToken() {
@@ -80,5 +89,9 @@ public class SessionManager {
 
     public int getIdEmpresa() {
         return preferences.getInt(KEY_ID_EMPRESA, 0);
+    }
+
+    public int getIdSucursal() {
+        return preferences.getInt(KEY_ID_SUCURSAL, 0);
     }
 }
