@@ -5,7 +5,6 @@
         <item name="colorSecondary">@color/incidentapp_dark</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/incidentapp_dark</item>
-        <item name="android:fontFamily">sans</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/incidentapp_light</item>
         <item name="android:navigationBarColor">@color/incidentapp_light</item>
