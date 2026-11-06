@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.glide)
+    implementation(libs.play.services.maps)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

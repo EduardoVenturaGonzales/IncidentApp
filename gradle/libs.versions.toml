@@ -15,6 +15,7 @@ lifecycle = "2.8.7"
 retrofitVersion = "2.11.0"
 okhttp = "4.12.0"
 glide = "4.16.0"
+playServicesMaps = "20.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -34,6 +35,7 @@ retrofit-v2110 = { module = "com.squareup.retrofit2:retrofit", version.ref = "re
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

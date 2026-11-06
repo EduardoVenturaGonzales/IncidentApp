@@ -209,6 +209,16 @@
                 app:cornerRadius="12dp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerMapa"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="12dp"
+                android:text="Ver sucursal en mapa"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/incidentapp_dark"
+                app:cornerRadius="12dp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNuevoIncidente"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"

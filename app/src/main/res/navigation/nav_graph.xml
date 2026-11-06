@@ -37,6 +37,10 @@
         <action
             android:id="@+id/action_homeFragment_to_nuevoIncidenteFragment"
             app:destination="@id/nuevoIncidenteFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_mapaFragment"
+            app:destination="@id/mapaFragment" />
     </fragment>
 
     <fragment
@@ -73,5 +77,12 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/mapaFragment"
+        android:name="com.example.incidentapp.ui.mapa.MapaFragment"
+        android:label="Mapa"
+        tools:layout="@layout/fragment_mapa" />
 
 </navigation>

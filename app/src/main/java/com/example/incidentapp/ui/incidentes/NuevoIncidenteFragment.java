@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -24,6 +25,7 @@ import com.example.incidentapp.util.MultipartUtils;
 import com.example.incidentapp.viewmodel.NuevoIncidenteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,20 +39,43 @@ public class NuevoIncidenteFragment extends Fragment {
     private final List<Sucursal> sucursales = new ArrayList<>();
     private final List<Uri> fotos = new ArrayList<>();
     private Integer idActivoSeleccionado = null;
+    private Uri fotoPendienteUri;
 
     private final ActivityResultLauncher<String[]> selectorFotos = registerForActivityResult(
             new ActivityResultContracts.OpenMultipleDocuments(),
             uris -> {
-                fotos.clear();
                 if (uris != null) {
-                    for (int i = 0; i < uris.size() && i < 2; i++) {
-                        fotos.add(uris.get(i));
+                    int espacioDisponible = 2 - fotos.size();
+                    int agregadas = 0;
+
+                    for (Uri uri : uris) {
+                        if (agregadas >= espacioDisponible) {
+                            break;
+                        }
+                        if (!fotos.contains(uri)) {
+                            fotos.add(uri);
+                            agregadas++;
+                        }
                     }
-                    if (uris.size() > 2) {
+
+                    if (uris.size() > espacioDisponible) {
                         Snackbar.make(requireView(), "Solo se permiten hasta 2 fotos", Snackbar.LENGTH_SHORT).show();
                     }
                 }
                 mostrarPrevisualizacion();
+            }
+    );
+
+    private final ActivityResultLauncher<Uri> tomarFoto = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(),
+            exito -> {
+                if (Boolean.TRUE.equals(exito) && fotoPendienteUri != null) {
+                    if (fotos.size() < 2) {
+                        fotos.add(fotoPendienteUri);
+                    }
+                    mostrarPrevisualizacion();
+                }
+                fotoPendienteUri = null;
             }
     );
 
@@ -79,7 +104,15 @@ public class NuevoIncidenteFragment extends Fragment {
         ));
 
         binding.btnVolver.setOnClickListener(v -> NavHostFragment.findNavController(this).popBackStack());
-        binding.btnSeleccionarFotos.setOnClickListener(v -> selectorFotos.launch(new String[]{"image/*"}));
+        binding.btnSeleccionarFotos.setOnClickListener(v -> {
+            if (fotos.size() >= 2) {
+                Snackbar.make(binding.getRoot(), "Ya seleccionaste el máximo de 2 fotos", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+            selectorFotos.launch(new String[]{"image/*"});
+        });
+
+        binding.btnTomarFoto.setOnClickListener(v -> abrirCamara());
         binding.btnBuscarActivo.setOnClickListener(v -> viewModel.buscarActivo(
                 binding.etCodigoQr.getText() == null ? "" : binding.etCodigoQr.getText().toString()
         ));
@@ -151,6 +184,41 @@ public class NuevoIncidenteFragment extends Fragment {
         });
 
         viewModel.cargarSucursales();
+    }
+
+    private void abrirCamara() {
+        if (fotos.size() >= 2) {
+            Snackbar.make(binding.getRoot(), "Ya seleccionaste el máximo de 2 fotos", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            File carpeta = new File(requireContext().getCacheDir(), "imagenes");
+            if (!carpeta.exists() && !carpeta.mkdirs()) {
+                throw new IOException("No se pudo preparar la carpeta temporal");
+            }
+
+            File archivo = File.createTempFile(
+                    "incidente_",
+                    ".jpg",
+                    carpeta
+            );
+
+            fotoPendienteUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    requireContext().getPackageName() + ".fileprovider",
+                    archivo
+            );
+
+            tomarFoto.launch(fotoPendienteUri);
+
+        } catch (IOException e) {
+            Snackbar.make(
+                    binding.getRoot(),
+                    "No se pudo abrir la cámara",
+                    Snackbar.LENGTH_LONG
+            ).show();
+        }
     }
 
     private void registrar() {
@@ -232,17 +300,35 @@ public class NuevoIncidenteFragment extends Fragment {
         binding.contenedorPreviews.removeAllViews();
         binding.tvCantidadFotos.setText(fotos.size() + " / 2 fotos seleccionadas");
 
-        for (Uri uri : fotos) {
-            ImageView image = new ImageView(requireContext());
-            int size = Math.round(100 * getResources().getDisplayMetrics().density);
-            android.widget.LinearLayout.LayoutParams params = new android.widget.LinearLayout.LayoutParams(size, size);
-            params.setMarginEnd(Math.round(10 * getResources().getDisplayMetrics().density));
-            image.setLayoutParams(params);
-            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        boolean puedeAgregarFotos = fotos.size() < 2;
+        binding.btnTomarFoto.setEnabled(puedeAgregarFotos);
+        binding.btnSeleccionarFotos.setEnabled(puedeAgregarFotos);
+        binding.btnTomarFoto.setAlpha(puedeAgregarFotos ? 1f : 0.55f);
+        binding.btnSeleccionarFotos.setAlpha(puedeAgregarFotos ? 1f : 0.55f);
+
+        for (Uri uri : new ArrayList<>(fotos)) {
+            View preview = LayoutInflater.from(requireContext()).inflate(
+                    R.layout.item_foto_preview,
+                    binding.contenedorPreviews,
+                    false
+            );
+
+            ImageView image = preview.findViewById(R.id.ivFotoPreview);
+            View btnEliminar = preview.findViewById(R.id.btnEliminarFoto);
+
             image.setImageURI(uri);
-            image.setBackgroundResource(R.drawable.bg_image_preview);
-            image.setClipToOutline(true);
-            binding.contenedorPreviews.addView(image);
+
+            btnEliminar.setOnClickListener(v -> {
+                fotos.remove(uri);
+                mostrarPrevisualizacion();
+                Snackbar.make(
+                        binding.getRoot(),
+                        "Foto eliminada. Puedes agregar otra.",
+                        Snackbar.LENGTH_SHORT
+                ).show();
+            });
+
+            binding.contenedorPreviews.addView(preview);
         }
     }
 

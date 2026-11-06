@@ -44,11 +44,20 @@ public class HomeFragment extends Fragment {
         binding.tvRol.setText(sesion.getRol());
 
         boolean solicitante = "Solicitante".equalsIgnoreCase(sesion.getRol());
+        boolean puedeVerMapa = "Administrador".equalsIgnoreCase(sesion.getRol())
+                || "Tecnico".equalsIgnoreCase(sesion.getRol());
+
         binding.btnNuevoIncidente.setVisibility(solicitante ? View.VISIBLE : View.GONE);
+        binding.btnVerMapa.setVisibility(puedeVerMapa ? View.VISIBLE : View.GONE);
 
         binding.btnVerIncidentes.setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
                         .navigate(R.id.action_homeFragment_to_listaIncidentesFragment)
+        );
+
+        binding.btnVerMapa.setOnClickListener(v ->
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_homeFragment_to_mapaFragment)
         );
 
         binding.btnNuevoIncidente.setOnClickListener(v ->

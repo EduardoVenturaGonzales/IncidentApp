@@ -1,5 +1,7 @@
 package com.example.incidentapp.ui.incidentes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ public class DetalleIncidenteFragment extends Fragment {
     private DetalleIncidenteViewModel viewModel;
     private HistorialAdapter historialAdapter;
     private int idIncidente;
+    private Incidente incidenteActual;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class DetalleIncidenteFragment extends Fragment {
         binding.btnVolver.setOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
         binding.btnCambiarEstado.setOnClickListener(v -> mostrarDialogoEstado());
         binding.btnAsignarTecnico.setOnClickListener(v -> viewModel.cargarTecnicos());
+        binding.btnComoLlegar.setOnClickListener(v -> abrirComoLlegar());
 
         String rol = SessionManager.getInstance().getRol();
         binding.btnCambiarEstado.setVisibility(
@@ -67,6 +71,9 @@ public class DetalleIncidenteFragment extends Fragment {
         );
         binding.btnAsignarTecnico.setVisibility(
                 "Administrador".equalsIgnoreCase(rol) ? View.VISIBLE : View.GONE
+        );
+        binding.btnComoLlegar.setVisibility(
+                "Tecnico".equalsIgnoreCase(rol) ? View.VISIBLE : View.GONE
         );
 
         viewModel.getLoading().observe(getViewLifecycleOwner(), cargando ->
@@ -100,6 +107,7 @@ public class DetalleIncidenteFragment extends Fragment {
         }
 
         Incidente i = detalle.getIncidente();
+        incidenteActual = i;
         binding.tvTicket.setText("Incidente #" + i.getId());
         binding.tvTitulo.setText(i.getTitulo());
         binding.tvDescripcion.setText(i.getDescripcion());
@@ -177,6 +185,40 @@ public class DetalleIncidenteFragment extends Fragment {
                 .setView(imageView)
                 .setPositiveButton("Cerrar", null)
                 .show();
+    }
+
+    private void abrirComoLlegar() {
+        if (incidenteActual == null
+                || incidenteActual.getLatitud() == null
+                || incidenteActual.getLongitud() == null) {
+            Snackbar.make(
+                    binding.getRoot(),
+                    "La sucursal no tiene coordenadas disponibles",
+                    Snackbar.LENGTH_LONG
+            ).show();
+            return;
+        }
+
+        double latitud = incidenteActual.getLatitud();
+        double longitud = incidenteActual.getLongitud();
+
+        Uri navegacion = Uri.parse(
+                "google.navigation:q=" + latitud + "," + longitud
+        );
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, navegacion);
+        intent.setPackage("com.google.android.apps.maps");
+
+        if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
+            startActivity(intent);
+            return;
+        }
+
+        Uri web = Uri.parse(
+                "https://www.google.com/maps/dir/?api=1&destination="
+                        + latitud + "," + longitud
+        );
+        startActivity(new Intent(Intent.ACTION_VIEW, web));
     }
 
     private void mostrarDialogoEstado() {
