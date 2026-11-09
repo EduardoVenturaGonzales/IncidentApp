@@ -26,22 +26,18 @@ public class MapaViewModel extends ViewModel {
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
     private final MutableLiveData<Event<String>> mensaje = new MutableLiveData<>();
 
-    public LiveData<List<Sucursal>> getSucursales() {
-        return sucursales;
-    }
-
-    public LiveData<Boolean> getLoading() {
-        return loading;
-    }
-
-    public LiveData<Event<String>> getMensaje() {
-        return mensaje;
-    }
+    public LiveData<List<Sucursal>> getSucursales() { return sucursales; }
+    public LiveData<Boolean> getLoading() { return loading; }
+    public LiveData<Event<String>> getMensaje() { return mensaje; }
 
     public void cargarSucursales() {
+        cargarSucursales(false);
+    }
+
+    public void cargarSucursales(boolean todas) {
         loading.setValue(true);
 
-        repository.obtenerSucursales().enqueue(new Callback<SucursalesResponse>() {
+        repository.obtenerSucursales(todas).enqueue(new Callback<SucursalesResponse>() {
             @Override
             public void onResponse(
                     Call<SucursalesResponse> call,
@@ -56,7 +52,7 @@ public class MapaViewModel extends ViewModel {
                 } else {
                     mensaje.setValue(new Event<>(ApiErrorUtils.obtenerMensaje(
                             response,
-                            "No se pudo cargar la sucursal"
+                            "No se pudieron cargar las sucursales"
                     )));
                 }
             }

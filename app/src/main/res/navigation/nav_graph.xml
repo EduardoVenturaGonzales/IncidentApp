@@ -41,6 +41,14 @@
         <action
             android:id="@+id/action_homeFragment_to_mapaFragment"
             app:destination="@id/mapaFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_registrarSucursalFragment"
+            app:destination="@id/registrarSucursalFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_registrarUsuarioFragment"
+            app:destination="@id/registrarUsuarioFragment" />
     </fragment>
 
     <fragment
@@ -84,5 +92,17 @@
         android:name="com.example.incidentapp.ui.mapa.MapaFragment"
         android:label="Mapa"
         tools:layout="@layout/fragment_mapa" />
+
+    <fragment
+        android:id="@+id/registrarSucursalFragment"
+        android:name="com.example.incidentapp.ui.gestion.RegistrarSucursalFragment"
+        android:label="Registrar sucursal"
+        tools:layout="@layout/fragment_registrar_sucursal" />
+
+    <fragment
+        android:id="@+id/registrarUsuarioFragment"
+        android:name="com.example.incidentapp.ui.gestion.RegistrarUsuarioFragment"
+        android:label="Registrar usuario"
+        tools:layout="@layout/fragment_registrar_usuario" />
 
 </navigation>

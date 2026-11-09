@@ -22,6 +22,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
+    private boolean esDesarrollador;
 
     @Override
     public View onCreateView(
@@ -40,15 +41,38 @@ public class HomeFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         SessionManager sesion = SessionManager.getInstance();
+        String rol = sesion.getRol();
         binding.tvUsuario.setText(sesion.getNombre());
-        binding.tvRol.setText(sesion.getRol());
+        binding.tvRol.setText(rol);
 
-        boolean solicitante = "Solicitante".equalsIgnoreCase(sesion.getRol());
-        boolean puedeVerMapa = "Administrador".equalsIgnoreCase(sesion.getRol())
-                || "Tecnico".equalsIgnoreCase(sesion.getRol());
+        esDesarrollador = "Desarrollador".equalsIgnoreCase(rol);
+        boolean administrador = "Administrador".equalsIgnoreCase(rol);
+        boolean tecnico = "Tecnico".equalsIgnoreCase(rol);
+        boolean solicitante = "Solicitante".equalsIgnoreCase(rol);
 
+        binding.tvTituloResumen.setVisibility(esDesarrollador ? View.GONE : View.VISIBLE);
+        binding.contenedorResumenIncidentes.setVisibility(esDesarrollador ? View.GONE : View.VISIBLE);
+        binding.progressHome.setVisibility(View.GONE);
+
+        binding.btnVerIncidentes.setVisibility(esDesarrollador ? View.GONE : View.VISIBLE);
         binding.btnNuevoIncidente.setVisibility(solicitante ? View.VISIBLE : View.GONE);
-        binding.btnVerMapa.setVisibility(puedeVerMapa ? View.VISIBLE : View.GONE);
+        binding.btnVerMapa.setVisibility(
+                esDesarrollador || administrador || tecnico ? View.VISIBLE : View.GONE
+        );
+        binding.btnRegistrarSucursal.setVisibility(esDesarrollador ? View.VISIBLE : View.GONE);
+        binding.btnRegistrarUsuario.setVisibility(
+                esDesarrollador || administrador ? View.VISIBLE : View.GONE
+        );
+
+        if (esDesarrollador) {
+            binding.btnVerMapa.setText("Ver todas las sucursales en mapa");
+            binding.btnRegistrarUsuario.setText("Registrar administrador");
+        } else if (administrador) {
+            binding.btnVerMapa.setText("Ver sucursales en mapa");
+            binding.btnRegistrarUsuario.setText("Registrar técnico o solicitante");
+        } else if (tecnico) {
+            binding.btnVerMapa.setText("Ver sucursal en mapa");
+        }
 
         binding.btnVerIncidentes.setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
@@ -65,6 +89,16 @@ public class HomeFragment extends Fragment {
                         .navigate(R.id.action_homeFragment_to_nuevoIncidenteFragment)
         );
 
+        binding.btnRegistrarSucursal.setOnClickListener(v ->
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_homeFragment_to_registrarSucursalFragment)
+        );
+
+        binding.btnRegistrarUsuario.setOnClickListener(v ->
+                NavHostFragment.findNavController(this)
+                        .navigate(R.id.action_homeFragment_to_registrarUsuarioFragment)
+        );
+
         binding.btnCerrarSesion.setOnClickListener(v -> {
             SessionManager.getInstance().cerrarSesion();
             NavHostFragment.findNavController(this)
@@ -72,11 +106,17 @@ public class HomeFragment extends Fragment {
         });
 
         viewModel.getIncidentes().observe(getViewLifecycleOwner(), this::actualizarResumen);
-        viewModel.getLoading().observe(getViewLifecycleOwner(), cargando ->
-                binding.progressHome.setVisibility(Boolean.TRUE.equals(cargando) ? View.VISIBLE : View.GONE)
-        );
+        viewModel.getLoading().observe(getViewLifecycleOwner(), cargando -> {
+            if (!esDesarrollador) {
+                binding.progressHome.setVisibility(
+                        Boolean.TRUE.equals(cargando) ? View.VISIBLE : View.GONE
+                );
+            }
+        });
 
-        viewModel.cargarResumen();
+        if (!esDesarrollador) {
+            viewModel.cargarResumen();
+        }
     }
 
     private void actualizarResumen(List<Incidente> lista) {
@@ -105,7 +145,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (viewModel != null) {
+        if (viewModel != null && !esDesarrollador) {
             viewModel.cargarResumen();
         }
     }

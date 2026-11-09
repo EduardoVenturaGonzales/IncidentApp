@@ -8,8 +8,13 @@ import com.example.incidentapp.network.RetrofitClient;
 import retrofit2.Call;
 
 public class CatalogoRepository {
+
     public Call<SucursalesResponse> obtenerSucursales() {
-        return RetrofitClient.getApiService().obtenerSucursales();
+        return RetrofitClient.getApiService().obtenerSucursales(null);
+    }
+
+    public Call<SucursalesResponse> obtenerSucursales(boolean todas) {
+        return RetrofitClient.getApiService().obtenerSucursales(todas ? 1 : null);
     }
 
     public Call<ActivoResponse> obtenerActivo(String codigoQr) {

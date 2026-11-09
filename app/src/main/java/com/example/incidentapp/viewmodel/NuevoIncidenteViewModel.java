@@ -111,7 +111,6 @@ public class NuevoIncidenteViewModel extends ViewModel {
             public void onResponse(Call<RegistroIncidenteResponse> call, Response<RegistroIncidenteResponse> response) {
                 loading.setValue(false);
                 if (response.isSuccessful() && response.body() != null) {
-                    mensaje.setValue(new Event<>(response.body().getMensaje()));
                     registrado.setValue(new Event<>(response.body().getIdIncidente()));
                 } else {
                     mensaje.setValue(new Event<>(ApiErrorUtils.obtenerMensaje(

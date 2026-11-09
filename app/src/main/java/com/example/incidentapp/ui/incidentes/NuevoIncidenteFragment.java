@@ -176,10 +176,27 @@ public class NuevoIncidenteFragment extends Fragment {
         viewModel.getRegistrado().observe(getViewLifecycleOwner(), evento -> {
             Integer id = evento.getContentIfNotHandled();
             if (id != null) {
-                Bundle args = new Bundle();
-                args.putInt("id_incidente", id);
-                NavHostFragment.findNavController(this)
-                        .navigate(R.id.action_nuevoIncidenteFragment_to_detalleIncidenteFragment, args);
+                Snackbar snackbar = Snackbar.make(
+                        binding.getRoot(),
+                        "Incidente registrado correctamente",
+                        Snackbar.LENGTH_SHORT
+                );
+                snackbar.addCallback(new Snackbar.Callback() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        if (!isAdded() || binding == null) {
+                            return;
+                        }
+                        Bundle args = new Bundle();
+                        args.putInt("id_incidente", id);
+                        NavHostFragment.findNavController(NuevoIncidenteFragment.this)
+                                .navigate(
+                                        R.id.action_nuevoIncidenteFragment_to_detalleIncidenteFragment,
+                                        args
+                                );
+                    }
+                });
+                snackbar.show();
             }
         });
 

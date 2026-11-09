@@ -8,17 +8,25 @@ public class Sucursal {
     private String direccion;
     private Double latitud;
     private Double longitud;
+    private String empresa;
 
     @SerializedName("id_empresa")
     private int idEmpresa;
+
+    @SerializedName("incidentes_abiertos")
+    private int incidentesAbiertos;
 
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDireccion() { return direccion; }
     public Double getLatitud() { return latitud; }
     public Double getLongitud() { return longitud; }
+    public String getEmpresa() { return empresa; }
     public int getIdEmpresa() { return idEmpresa; }
+    public int getIncidentesAbiertos() { return incidentesAbiertos; }
 
     @Override
-    public String toString() { return nombre; }
+    public String toString() {
+        return nombre;
+    }
 }

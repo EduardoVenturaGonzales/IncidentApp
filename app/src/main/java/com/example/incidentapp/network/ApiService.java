@@ -4,11 +4,14 @@ import com.example.incidentapp.model.ActivoResponse;
 import com.example.incidentapp.model.AsignarTecnicoRequest;
 import com.example.incidentapp.model.CambioEstadoRequest;
 import com.example.incidentapp.model.DetalleIncidenteResponse;
+import com.example.incidentapp.model.EmpresasResponse;
 import com.example.incidentapp.model.IncidentesResponse;
 import com.example.incidentapp.model.LoginRequest;
 import com.example.incidentapp.model.LoginResponse;
 import com.example.incidentapp.model.MensajeResponse;
 import com.example.incidentapp.model.RegistroIncidenteResponse;
+import com.example.incidentapp.model.RegistroSucursalRequest;
+import com.example.incidentapp.model.RegistroUsuarioRequest;
 import com.example.incidentapp.model.SucursalesResponse;
 import com.example.incidentapp.model.TecnicosResponse;
 
@@ -30,7 +33,6 @@ public interface ApiService {
 
     @POST("auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);
-
 
     @GET("incidentes")
     Call<IncidentesResponse> obtenerIncidentes(
@@ -66,7 +68,16 @@ public interface ApiService {
     );
 
     @GET("sucursales")
-    Call<SucursalesResponse> obtenerSucursales();
+    Call<SucursalesResponse> obtenerSucursales(@Query("todas") Integer todas);
+
+    @POST("sucursales")
+    Call<MensajeResponse> registrarSucursal(@Body RegistroSucursalRequest request);
+
+    @GET("empresas")
+    Call<EmpresasResponse> obtenerEmpresas();
+
+    @POST("usuarios")
+    Call<MensajeResponse> registrarUsuario(@Body RegistroUsuarioRequest request);
 
     @GET("activos/{codigo_qr}")
     Call<ActivoResponse> obtenerActivo(@Path("codigo_qr") String codigoQr);

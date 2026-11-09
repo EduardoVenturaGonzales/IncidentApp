@@ -59,12 +59,16 @@ public class SessionManager {
     public boolean haySesion() {
         String token = getToken();
 
-        // Desde la actualización por sucursales, una sesión válida también debe
-        // conocer la sucursal del usuario. Esto obliga a iniciar sesión nuevamente
-        // si la app conservaba una sesión antigua creada antes de este cambio.
-        return token != null
-                && !token.trim().isEmpty()
-                && getIdSucursal() > 0;
+        if (token == null || token.trim().isEmpty()) {
+            return false;
+        }
+
+        // El Desarrollador es un rol global y no pertenece a una sucursal.
+        if ("Desarrollador".equalsIgnoreCase(getRol())) {
+            return true;
+        }
+
+        return getIdSucursal() > 0;
     }
 
     public String getToken() {
