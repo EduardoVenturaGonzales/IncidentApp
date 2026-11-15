@@ -222,6 +222,48 @@
             android:textAllCaps="false"
             android:visibility="gone" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerificarActivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Verificar activo con QR"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            app:backgroundTint="@color/incidentapp_dark" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSolicitarAnulacion"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Anular incidente"
+            android:textAllCaps="false"
+            android:textColor="@color/incidentapp_red"
+            android:visibility="gone"
+            app:strokeColor="@color/incidentapp_red" />
+
+        <TextView
+            android:id="@+id/tvSolicitudAnulacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/incidentapp_red"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEliminarIncidente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Eliminar incidente"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:backgroundTint="@color/incidentapp_red" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

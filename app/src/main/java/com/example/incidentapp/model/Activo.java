@@ -18,6 +18,9 @@ public class Activo {
     private String sucursal;
     private String direccion;
 
+    @SerializedName("fecha_registro")
+    private String fechaRegistro;
+
     @SerializedName("id_empresa")
     private int idEmpresa;
 
@@ -29,5 +32,6 @@ public class Activo {
     public int getIdSucursal() { return idSucursal; }
     public String getSucursal() { return sucursal; }
     public String getDireccion() { return direccion; }
+    public String getFechaRegistro() { return fechaRegistro; }
     public int getIdEmpresa() { return idEmpresa; }
 }

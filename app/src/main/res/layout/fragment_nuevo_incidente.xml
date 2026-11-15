@@ -135,9 +135,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Por ahora puedes escribir el código del QR. Más adelante conectaremos el escáner."
+                    android:text="Escanea el código QR pegado al equipo para identificar automáticamente el Activo TI."
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEscanearActivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Escanear equipo"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/incidentapp_red" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

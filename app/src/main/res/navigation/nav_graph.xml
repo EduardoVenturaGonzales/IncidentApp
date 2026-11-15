@@ -5,104 +5,55 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.incidentapp.ui.login.LoginFragment"
-        android:label="@string/inicio_sesion"
-        tools:layout="@layout/fragment_login">
-
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+    <fragment android:id="@+id/loginFragment" android:name="com.example.incidentapp.ui.login.LoginFragment" android:label="@string/inicio_sesion" tools:layout="@layout/fragment_login">
+        <action android:id="@+id/action_loginFragment_to_homeFragment" app:destination="@id/homeFragment" app:popUpTo="@id/loginFragment" app:popUpToInclusive="true" />
     </fragment>
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.incidentapp.ui.home.HomeFragment"
-        android:label="@string/inicio"
-        tools:layout="@layout/fragment_home">
-
-        <action
-            android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_listaIncidentesFragment"
-            app:destination="@id/listaIncidentesFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_nuevoIncidenteFragment"
-            app:destination="@id/nuevoIncidenteFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_mapaFragment"
-            app:destination="@id/mapaFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_registrarSucursalFragment"
-            app:destination="@id/registrarSucursalFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_registrarUsuarioFragment"
-            app:destination="@id/registrarUsuarioFragment" />
+    <fragment android:id="@+id/homeFragment" android:name="com.example.incidentapp.ui.home.HomeFragment" android:label="@string/inicio" tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_homeFragment_to_loginFragment" app:destination="@id/loginFragment" app:popUpTo="@id/homeFragment" app:popUpToInclusive="true" />
+        <action android:id="@+id/action_homeFragment_to_listaIncidentesFragment" app:destination="@id/listaIncidentesFragment" />
+        <action android:id="@+id/action_homeFragment_to_nuevoIncidenteFragment" app:destination="@id/nuevoIncidenteFragment" />
+        <action android:id="@+id/action_homeFragment_to_mapaFragment" app:destination="@id/mapaFragment" />
+        <action android:id="@+id/action_homeFragment_to_gestionEmpresasFragment" app:destination="@id/gestionEmpresasFragment" />
+        <action android:id="@+id/action_homeFragment_to_registrarSucursalFragment" app:destination="@id/registrarSucursalFragment" />
+        <action android:id="@+id/action_homeFragment_to_registrarUsuarioFragment" app:destination="@id/registrarUsuarioFragment" />
+        <action android:id="@+id/action_homeFragment_to_gestionActivosFragment" app:destination="@id/gestionActivosFragment" />
+        <action android:id="@+id/action_homeFragment_to_solicitudesAnulacionFragment" app:destination="@id/solicitudesAnulacionFragment" />
+        <action android:id="@+id/action_homeFragment_to_notificacionesFragment" app:destination="@id/notificacionesFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/listaIncidentesFragment"
-        android:name="com.example.incidentapp.ui.incidentes.ListaIncidentesFragment"
-        android:label="Incidentes"
-        tools:layout="@layout/fragment_lista_incidentes">
-
-        <action
-            android:id="@+id/action_listaIncidentesFragment_to_detalleIncidenteFragment"
-            app:destination="@id/detalleIncidenteFragment" />
+    <fragment android:id="@+id/listaIncidentesFragment" android:name="com.example.incidentapp.ui.incidentes.ListaIncidentesFragment" android:label="Incidentes" tools:layout="@layout/fragment_lista_incidentes">
+        <action android:id="@+id/action_listaIncidentesFragment_to_detalleIncidenteFragment" app:destination="@id/detalleIncidenteFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/nuevoIncidenteFragment"
-        android:name="com.example.incidentapp.ui.incidentes.NuevoIncidenteFragment"
-        android:label="Nuevo incidente"
-        tools:layout="@layout/fragment_nuevo_incidente">
-
-        <action
-            android:id="@+id/action_nuevoIncidenteFragment_to_detalleIncidenteFragment"
-            app:destination="@id/detalleIncidenteFragment"
-            app:popUpTo="@id/homeFragment" />
+    <fragment android:id="@+id/nuevoIncidenteFragment" android:name="com.example.incidentapp.ui.incidentes.NuevoIncidenteFragment" android:label="Nuevo incidente" tools:layout="@layout/fragment_nuevo_incidente">
+        <action android:id="@+id/action_nuevoIncidenteFragment_to_detalleIncidenteFragment" app:destination="@id/detalleIncidenteFragment" app:popUpTo="@id/homeFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/detalleIncidenteFragment"
-        android:name="com.example.incidentapp.ui.incidentes.DetalleIncidenteFragment"
-        android:label="Detalle"
-        tools:layout="@layout/fragment_detalle_incidente">
-
-        <argument
-            android:name="id_incidente"
-            app:argType="integer"
-            android:defaultValue="0" />
+    <fragment android:id="@+id/detalleIncidenteFragment" android:name="com.example.incidentapp.ui.incidentes.DetalleIncidenteFragment" android:label="Detalle" tools:layout="@layout/fragment_detalle_incidente">
+        <argument android:name="id_incidente" app:argType="integer" android:defaultValue="0" />
     </fragment>
 
+    <fragment android:id="@+id/mapaFragment" android:name="com.example.incidentapp.ui.mapa.MapaFragment" android:label="Mapa" tools:layout="@layout/fragment_mapa" />
 
-    <fragment
-        android:id="@+id/mapaFragment"
-        android:name="com.example.incidentapp.ui.mapa.MapaFragment"
-        android:label="Mapa"
-        tools:layout="@layout/fragment_mapa" />
+    <fragment android:id="@+id/gestionEmpresasFragment" android:name="com.example.incidentapp.ui.gestion.GestionEmpresasFragment" android:label="Empresas" tools:layout="@layout/fragment_gestion_empresas" />
 
-    <fragment
-        android:id="@+id/registrarSucursalFragment"
-        android:name="com.example.incidentapp.ui.gestion.RegistrarSucursalFragment"
-        android:label="Registrar sucursal"
-        tools:layout="@layout/fragment_registrar_sucursal" />
+    <fragment android:id="@+id/registrarSucursalFragment" android:name="com.example.incidentapp.ui.gestion.RegistrarSucursalFragment" android:label="Sucursales" tools:layout="@layout/fragment_registrar_sucursal" />
 
-    <fragment
-        android:id="@+id/registrarUsuarioFragment"
-        android:name="com.example.incidentapp.ui.gestion.RegistrarUsuarioFragment"
-        android:label="Registrar usuario"
-        tools:layout="@layout/fragment_registrar_usuario" />
+    <fragment android:id="@+id/registrarUsuarioFragment" android:name="com.example.incidentapp.ui.gestion.RegistrarUsuarioFragment" android:label="Usuarios" tools:layout="@layout/fragment_registrar_usuario" />
 
+    <fragment android:id="@+id/gestionActivosFragment" android:name="com.example.incidentapp.ui.gestion.GestionActivosFragment" android:label="Activos TI" tools:layout="@layout/fragment_gestion_activos">
+        <action android:id="@+id/action_gestionActivosFragment_to_registrarActivoFragment" app:destination="@id/registrarActivoFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/registrarActivoFragment" android:name="com.example.incidentapp.ui.gestion.RegistrarActivoFragment" android:label="Registrar activo" tools:layout="@layout/fragment_registrar_activo" />
+
+    <fragment android:id="@+id/solicitudesAnulacionFragment" android:name="com.example.incidentapp.ui.incidentes.SolicitudesAnulacionFragment" android:label="Solicitudes de anulación" tools:layout="@layout/fragment_solicitudes_anulacion">
+        <action android:id="@+id/action_solicitudesAnulacionFragment_to_detalleIncidenteFragment" app:destination="@id/detalleIncidenteFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/notificacionesFragment" android:name="com.example.incidentapp.ui.notificaciones.NotificacionesFragment" android:label="Notificaciones" tools:layout="@layout/fragment_notificaciones">
+        <action android:id="@+id/action_notificacionesFragment_to_detalleIncidenteFragment" app:destination="@id/detalleIncidenteFragment" />
+        <action android:id="@+id/action_notificacionesFragment_to_solicitudesAnulacionFragment" app:destination="@id/solicitudesAnulacionFragment" />
+    </fragment>
 </navigation>

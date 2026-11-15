@@ -1,5 +1,7 @@
 package com.example.incidentapp.ui.incidentes;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +27,8 @@ import com.example.incidentapp.session.SessionManager;
 import com.example.incidentapp.util.MultipartUtils;
 import com.example.incidentapp.viewmodel.NuevoIncidenteViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +45,14 @@ public class NuevoIncidenteFragment extends Fragment {
     private final List<Uri> fotos = new ArrayList<>();
     private Integer idActivoSeleccionado = null;
     private Uri fotoPendienteUri;
+
+    private final ActivityResultLauncher<String> permisoCamara = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            concedido -> {
+                if (Boolean.TRUE.equals(concedido)) abrirCamara();
+                else if (binding != null) Snackbar.make(binding.getRoot(), "Se necesita permiso de cámara", Snackbar.LENGTH_LONG).show();
+            }
+    );
 
     private final ActivityResultLauncher<String[]> selectorFotos = registerForActivityResult(
             new ActivityResultContracts.OpenMultipleDocuments(),
@@ -63,6 +76,17 @@ public class NuevoIncidenteFragment extends Fragment {
                     }
                 }
                 mostrarPrevisualizacion();
+            }
+    );
+
+    private final ActivityResultLauncher<ScanOptions> escanerQr = registerForActivityResult(
+            new ScanContract(),
+            resultado -> {
+                if (resultado.getContents() != null && binding != null) {
+                    String codigo = resultado.getContents().trim();
+                    binding.etCodigoQr.setText(codigo);
+                    viewModel.buscarActivo(codigo);
+                }
             }
     );
 
@@ -112,7 +136,8 @@ public class NuevoIncidenteFragment extends Fragment {
             selectorFotos.launch(new String[]{"image/*"});
         });
 
-        binding.btnTomarFoto.setOnClickListener(v -> abrirCamara());
+        binding.btnTomarFoto.setOnClickListener(v -> prepararCamara());
+        binding.btnEscanearActivo.setOnClickListener(v -> abrirEscanerQr());
         binding.btnBuscarActivo.setOnClickListener(v -> viewModel.buscarActivo(
                 binding.etCodigoQr.getText() == null ? "" : binding.etCodigoQr.getText().toString()
         ));
@@ -201,6 +226,23 @@ public class NuevoIncidenteFragment extends Fragment {
         });
 
         viewModel.cargarSucursales();
+    }
+
+    private void prepararCamara() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            abrirCamara();
+        } else {
+            permisoCamara.launch(Manifest.permission.CAMERA);
+        }
+    }
+
+    private void abrirEscanerQr() {
+        ScanOptions opciones = new ScanOptions();
+        opciones.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
+        opciones.setPrompt("Escanea el QR del Activo TI");
+        opciones.setBeepEnabled(true);
+        opciones.setOrientationLocked(false);
+        escanerQr.launch(opciones);
     }
 
     private void abrirCamara() {

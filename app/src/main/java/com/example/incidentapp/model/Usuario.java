@@ -7,6 +7,9 @@ public class Usuario {
     private String nombre;
     private String correo;
     private String rol;
+    private int activo;
+    private String sucursal;
+    private String empresa;
 
     @SerializedName("id_empresa")
     private int idEmpresa;
@@ -18,6 +21,9 @@ public class Usuario {
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }
     public String getRol() { return rol; }
+    public int getActivo() { return activo; }
+    public String getSucursal() { return sucursal; }
+    public String getEmpresa() { return empresa; }
     public int getIdEmpresa() { return idEmpresa; }
     public int getIdSucursal() { return idSucursal; }
 }

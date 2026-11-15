@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.glide)
     implementation(libs.play.services.maps)
+    implementation(libs.zxing.android.embedded)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

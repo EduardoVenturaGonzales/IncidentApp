@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/incidentapp_light" android:orientation="vertical" android:padding="16dp" tools:context=".ui.gestion.GestionActivosFragment">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnVolver" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Volver" android:textAllCaps="false" android:textColor="@color/incidentapp_red" />
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="end" android:text="Activos TI" android:textColor="@color/incidentapp_dark" android:textSize="22sp" android:textStyle="bold" />
+    </LinearLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Equipos registrados en tu sucursal. El QR generado identifica cada activo." android:textColor="@color/text_secondary" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnNuevoActivo" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="14dp" android:text="Registrar activo TI" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_red" />
+    <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:visibility="gone" app:indicatorColor="@color/incidentapp_red" />
+    <TextView android:id="@+id/tvVacio" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:gravity="center" android:text="No hay activos registrados" android:textColor="@color/text_secondary" android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerActivos" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginTop="12dp" android:layout_weight="1" tools:listitem="@layout/item_activo" />
+</LinearLayout>
