@@ -34,4 +34,6 @@ public class Historial {
     public String getUsuario() { return usuario; }
     public String getRol() { return rol; }
     public String getFechaCambio() { return fechaCambio; }
+    public void setId(int v){id=v;} public void setIdIncidente(int v){idIncidente=v;} public void setEstadoAnterior(String v){estadoAnterior=v;} public void setEstadoNuevo(String v){estadoNuevo=v;} public void setComentario(String v){comentario=v;} public void setIdUsuario(int v){idUsuario=v;} public void setUsuario(String v){usuario=v;} public void setRol(String v){rol=v;} public void setFechaCambio(String v){fechaCambio=v;}
 }
+

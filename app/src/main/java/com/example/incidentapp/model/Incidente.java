@@ -16,6 +16,9 @@ public class Incidente {
     @SerializedName("fecha_resolucion")
     private String fechaResolucion;
 
+    @SerializedName("fecha_no_resuelto")
+    private String fechaNoResuelto;
+
     @SerializedName("id_solicitante")
     private int idSolicitante;
 
@@ -58,6 +61,7 @@ public class Incidente {
     public String getEstado() { return estado; }
     public String getFechaRegistro() { return fechaRegistro; }
     public String getFechaResolucion() { return fechaResolucion; }
+    public String getFechaNoResuelto() { return fechaNoResuelto; }
     public int getIdSolicitante() { return idSolicitante; }
     public String getSolicitante() { return solicitante; }
     public String getCorreoSolicitante() { return correoSolicitante; }
@@ -73,4 +77,7 @@ public class Incidente {
     public String getCodigoQr() { return codigoQr; }
     public String getActivo() { return activo; }
     public String getTipoActivo() { return tipoActivo; }
+
+    public void setId(int id){this.id=id;} public void setTitulo(String v){titulo=v;} public void setDescripcion(String v){descripcion=v;} public void setCategoria(String v){categoria=v;} public void setPrioridad(String v){prioridad=v;} public void setEstado(String v){estado=v;} public void setFechaRegistro(String v){fechaRegistro=v;} public void setFechaResolucion(String v){fechaResolucion=v;} public void setFechaNoResuelto(String v){fechaNoResuelto=v;} public void setIdSolicitante(int v){idSolicitante=v;} public void setSolicitante(String v){solicitante=v;} public void setCorreoSolicitante(String v){correoSolicitante=v;} public void setIdTecnico(Integer v){idTecnico=v;} public void setTecnico(String v){tecnico=v;} public void setIdSucursal(int v){idSucursal=v;} public void setSucursal(String v){sucursal=v;} public void setDireccionSucursal(String v){direccionSucursal=v;} public void setLatitud(Double v){latitud=v;} public void setLongitud(Double v){longitud=v;} public void setIdEmpresa(Integer v){idEmpresa=v;} public void setIdActivo(Integer v){idActivo=v;} public void setCodigoQr(String v){codigoQr=v;} public void setActivo(String v){activo=v;} public void setTipoActivo(String v){tipoActivo=v;}
 }
+

@@ -2,6 +2,7 @@ package com.example.incidentapp.repository;
 
 import com.example.incidentapp.model.AsignarTecnicoRequest;
 import com.example.incidentapp.model.CambioEstadoRequest;
+import com.example.incidentapp.model.CambioPrioridadRequest;
 import com.example.incidentapp.model.DetalleIncidenteResponse;
 import com.example.incidentapp.model.EliminarIncidenteRequest;
 import com.example.incidentapp.model.IncidentesResponse;
@@ -59,6 +60,10 @@ public class IncidenteRepository {
                 new CambioEstadoRequest(estado, comentario)
         );
     }
+
+    public Call<MensajeResponse> marcarVencimientoSla(int idIncidente) { return RetrofitClient.getApiService().marcarVencimientoSla(idIncidente); }
+
+    public Call<MensajeResponse> cambiarPrioridad(int idIncidente, String prioridad, String comentario) { return RetrofitClient.getApiService().cambiarPrioridad(idIncidente, new CambioPrioridadRequest(prioridad, comentario)); }
 
     public Call<MensajeResponse> asignarTecnico(int idIncidente, int idTecnico) {
         return RetrofitClient.getApiService().asignarTecnico(

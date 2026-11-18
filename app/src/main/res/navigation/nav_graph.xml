@@ -20,6 +20,7 @@
         <action android:id="@+id/action_homeFragment_to_gestionActivosFragment" app:destination="@id/gestionActivosFragment" />
         <action android:id="@+id/action_homeFragment_to_solicitudesAnulacionFragment" app:destination="@id/solicitudesAnulacionFragment" />
         <action android:id="@+id/action_homeFragment_to_notificacionesFragment" app:destination="@id/notificacionesFragment" />
+        <action android:id="@+id/action_homeFragment_to_reportesFragment" app:destination="@id/reportesFragment" />
     </fragment>
 
     <fragment android:id="@+id/listaIncidentesFragment" android:name="com.example.incidentapp.ui.incidentes.ListaIncidentesFragment" android:label="Incidentes" tools:layout="@layout/fragment_lista_incidentes">
@@ -56,4 +57,5 @@
         <action android:id="@+id/action_notificacionesFragment_to_detalleIncidenteFragment" app:destination="@id/detalleIncidenteFragment" />
         <action android:id="@+id/action_notificacionesFragment_to_solicitudesAnulacionFragment" app:destination="@id/solicitudesAnulacionFragment" />
     </fragment>
+    <fragment android:id="@+id/reportesFragment" android:name="com.example.incidentapp.ui.reportes.ReportesFragment" android:label="Reportes" tools:layout="@layout/fragment_reportes" />
 </navigation>

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentMapaBinding;
 import com.example.incidentapp.model.Sucursal;
+import com.example.incidentapp.model.TecnicoUbicacion;
 import com.example.incidentapp.session.SessionManager;
 import com.example.incidentapp.viewmodel.MapaViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Collections;
@@ -39,6 +41,7 @@ public class MapaFragment extends Fragment implements
     private List<Sucursal> sucursales = Collections.emptyList();
     private boolean esAdministrador;
     private boolean esDesarrollador;
+    private java.util.List<TecnicoUbicacion> tecnicos = java.util.Collections.emptyList();
 
     @Override
     public View onCreateView(
@@ -100,6 +103,8 @@ public class MapaFragment extends Fragment implements
             dibujarSucursales();
         });
 
+        viewModel.getTecnicos().observe(getViewLifecycleOwner(), lista -> { tecnicos = lista == null ? java.util.Collections.emptyList() : lista; dibujarSucursales(); });
+
         viewModel.getLoading().observe(getViewLifecycleOwner(), cargando ->
                 binding.progressMapa.setVisibility(
                         Boolean.TRUE.equals(cargando) ? View.VISIBLE : View.GONE
@@ -114,6 +119,7 @@ public class MapaFragment extends Fragment implements
         });
 
         viewModel.cargarSucursales(false);
+        if (esAdministrador) viewModel.cargarTecnicos();
     }
 
     @Override
@@ -202,6 +208,14 @@ public class MapaFragment extends Fragment implements
                     // Si el mapa aún no terminó de medir, se mantiene la cámara actual.
                 }
             });
+        }
+
+        if (esAdministrador && tecnicos != null) {
+            for (TecnicoUbicacion t : tecnicos) {
+                if (!t.isCompartiendo() || t.getLatitud() == null || t.getLongitud() == null) continue;
+                String info = t.getIncidenteTitulo() == null ? "Sin incidente activo" : "Incidente #" + t.getIdIncidente() + " · " + t.getIncidenteTitulo();
+                mMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitud(), t.getLongitud())).title("Técnico: " + t.getTecnico()).snippet(info).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            }
         }
 
         if (primerMarcador != null) {

@@ -25,6 +25,7 @@ import com.example.incidentapp.model.Activo;
 import com.example.incidentapp.model.Sucursal;
 import com.example.incidentapp.session.SessionManager;
 import com.example.incidentapp.util.MultipartUtils;
+import com.example.incidentapp.util.OfflineFileUtils;
 import com.example.incidentapp.viewmodel.NuevoIncidenteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -225,6 +226,8 @@ public class NuevoIncidenteFragment extends Fragment {
             }
         });
 
+        viewModel.getPendiente().observe(getViewLifecycleOwner(), evento -> { Boolean ok = evento.getContentIfNotHandled(); if (Boolean.TRUE.equals(ok) && binding != null) { Snackbar.make(binding.getRoot(), "Incidente guardado. Se enviará automáticamente al volver Internet.", Snackbar.LENGTH_LONG).show(); NavHostFragment.findNavController(this).popBackStack(); } });
+
         viewModel.cargarSucursales();
     }
 
@@ -322,24 +325,16 @@ public class NuevoIncidenteFragment extends Fragment {
         }
 
         List<MultipartBody.Part> partes = new ArrayList<>();
+        List<String> fotosPersistentes;
         try {
-            for (Uri uri : fotos) {
-                partes.add(MultipartUtils.crearParteFoto(requireContext(), uri));
-            }
+            for (Uri uri : fotos) partes.add(MultipartUtils.crearParteFoto(requireContext(), uri));
+            fotosPersistentes = OfflineFileUtils.copiar(requireContext(), fotos);
         } catch (IOException e) {
-            Snackbar.make(binding.getRoot(), "No se pudo leer una de las imágenes", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), "No se pudo preparar una de las imágenes", Snackbar.LENGTH_LONG).show();
             return;
         }
 
-        viewModel.registrar(
-                titulo,
-                descripcion,
-                categoria,
-                prioridad,
-                sucursal.getId(),
-                idActivoSeleccionado,
-                partes
-        );
+        viewModel.registrar(titulo, descripcion, categoria, prioridad, sucursal.getId(), idActivoSeleccionado, partes, fotosPersistentes, requireContext().getApplicationContext());
     }
 
     private String texto(android.widget.EditText editText) {

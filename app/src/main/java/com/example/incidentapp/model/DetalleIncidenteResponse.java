@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class DetalleIncidenteResponse {
+    public DetalleIncidenteResponse() {}
+    public DetalleIncidenteResponse(Incidente incidente, List<Historial> historial, List<FotoIncidente> fotos, SolicitudAnulacion solicitudAnulacion){this.incidente=incidente;this.historial=historial;this.fotos=fotos;this.solicitudAnulacion=solicitudAnulacion;}
     private Incidente incidente;
     private List<Historial> historial;
     private List<FotoIncidente> fotos;

@@ -45,6 +45,19 @@ public final class MultipartUtils {
         return MultipartBody.Part.createFormData("fotos", nombre, cuerpo);
     }
 
+    public static MultipartBody.Part crearParteFotoDesdeArchivo(java.io.File archivo) throws IOException {
+        if (archivo == null || !archivo.exists()) throw new IOException("Archivo offline no disponible");
+        byte[] bytes;
+        try (java.io.FileInputStream input = new java.io.FileInputStream(archivo);
+             java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
+            byte[] buffer = new byte[8192]; int leidos;
+            while ((leidos = input.read(buffer)) != -1) output.write(buffer, 0, leidos);
+            bytes = output.toByteArray();
+        }
+        RequestBody cuerpo = RequestBody.create(MediaType.parse("image/jpeg"), bytes);
+        return MultipartBody.Part.createFormData("fotos", archivo.getName(), cuerpo);
+    }
+
     private static String obtenerNombre(Context context, Uri uri) {
         String nombre = "foto_incidente.jpg";
 

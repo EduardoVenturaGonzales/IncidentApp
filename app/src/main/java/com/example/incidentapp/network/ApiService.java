@@ -4,6 +4,7 @@ import com.example.incidentapp.model.ActivoResponse;
 import com.example.incidentapp.model.ActivosResponse;
 import com.example.incidentapp.model.AsignarTecnicoRequest;
 import com.example.incidentapp.model.CambioEstadoRequest;
+import com.example.incidentapp.model.CambioPrioridadRequest;
 import com.example.incidentapp.model.DetalleIncidenteResponse;
 import com.example.incidentapp.model.EliminarIncidenteRequest;
 import com.example.incidentapp.model.EmpresasResponse;
@@ -25,6 +26,9 @@ import com.example.incidentapp.model.TecnicosResponse;
 import com.example.incidentapp.model.UsuariosResponse;
 import com.example.incidentapp.model.VerificarActivoRequest;
 import com.example.incidentapp.model.VerificarActivoResponse;
+import com.example.incidentapp.model.UbicacionesTecnicosResponse;
+import com.example.incidentapp.model.UbicacionTecnicoRequest;
+import com.example.incidentapp.model.ReporteResumen;
 
 import java.util.List;
 
@@ -74,6 +78,12 @@ public interface ApiService {
             @Path("id") int idIncidente,
             @Body CambioEstadoRequest request
     );
+
+    @PUT("incidentes/{id}/vencimiento-sla")
+    Call<MensajeResponse> marcarVencimientoSla(@Path("id") int idIncidente);
+
+    @PUT("incidentes/{id}/prioridad")
+    Call<MensajeResponse> cambiarPrioridad(@Path("id") int idIncidente, @Body CambioPrioridadRequest request);
 
     @PUT("incidentes/{id}/asignar")
     Call<MensajeResponse> asignarTecnico(
@@ -160,6 +170,19 @@ public interface ApiService {
 
     @DELETE("activos/{id}")
     Call<MensajeResponse> eliminarActivo(@Path("id") int idActivo);
+
+    // UBICACION DE TECNICOS / REPORTES
+    @POST("tecnicos/ubicacion")
+    Call<MensajeResponse> actualizarUbicacion(@Body UbicacionTecnicoRequest request);
+
+    @DELETE("tecnicos/ubicacion")
+    Call<MensajeResponse> detenerUbicacion();
+
+    @GET("tecnicos/ubicaciones")
+    Call<UbicacionesTecnicosResponse> obtenerUbicacionesTecnicos();
+
+    @GET("reportes/resumen")
+    Call<ReporteResumen> obtenerReporteResumen();
 
     // NOTIFICACIONES INTERNAS
     @GET("notificaciones")

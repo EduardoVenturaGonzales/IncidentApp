@@ -46,7 +46,7 @@ public class ListaIncidentesFragment extends Fragment {
         binding.recyclerIncidentes.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerIncidentes.setAdapter(adapter);
 
-        String[] estados = {"Todos", "Abierto", "En proceso", "Resuelto", "Cerrado", "Anulado"};
+        String[] estados = {"Todos", "Abierto", "En proceso", "Resuelto", "No Resuelto", "Anulado"};
         String[] prioridades = {"Todos", "Alta", "Media", "Baja"};
 
         binding.actEstado.setAdapter(new ArrayAdapter<>(

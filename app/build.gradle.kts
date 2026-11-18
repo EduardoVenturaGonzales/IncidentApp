@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.play.services.maps)
     implementation(libs.zxing.android.embedded)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.work.runtime)
+    implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

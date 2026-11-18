@@ -1,0 +1,3 @@
+package com.example.incidentapp.repository;
+import com.example.incidentapp.model.*; import com.example.incidentapp.network.RetrofitClient; import retrofit2.Call;
+public class UbicacionRepository { public Call<MensajeResponse> actualizar(double lat,double lon,Float precision,Integer incidente){return RetrofitClient.getApiService().actualizarUbicacion(new UbicacionTecnicoRequest(lat,lon,precision,incidente));} public Call<MensajeResponse> detener(){return RetrofitClient.getApiService().detenerUbicacion();} public Call<UbicacionesTecnicosResponse> listar(){return RetrofitClient.getApiService().obtenerUbicacionesTecnicos();} }

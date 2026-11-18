@@ -1,32 +1,3 @@
 package com.example.incidentapp;
-
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.incidentapp.databinding.ActivityMainBinding;
-import com.example.incidentapp.session.SessionManager;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        SessionManager.init(getApplicationContext());
-        EdgeToEdge.enable(this);
-
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-    }
-}
+import android.Manifest; import android.content.*; import android.content.pm.PackageManager; import android.net.*; import android.os.*; import androidx.activity.EdgeToEdge; import androidx.activity.result.contract.ActivityResultContracts; import androidx.appcompat.app.AppCompatActivity; import androidx.core.content.ContextCompat; import androidx.core.graphics.Insets; import androidx.core.view.*; import com.example.incidentapp.databinding.ActivityMainBinding; import com.example.incidentapp.notifications.NotificationCenter; import com.example.incidentapp.util.NetworkUtils; import com.example.incidentapp.worker.SyncScheduler;
+public class MainActivity extends AppCompatActivity { private ActivityMainBinding binding; private ConnectivityManager.NetworkCallback netCb; private final Handler notifHandler=new Handler(Looper.getMainLooper()); private final Runnable notifPoll=new Runnable(){public void run(){NotificationCenter.sincronizar(MainActivity.this);notifHandler.postDelayed(this,10000);}}; @Override protected void onCreate(Bundle b){super.onCreate(b);EdgeToEdge.enable(this);binding=ActivityMainBinding.inflate(getLayoutInflater());setContentView(binding.getRoot());ViewCompat.setOnApplyWindowInsetsListener(binding.main,(v,in)->{Insets x=in.getInsets(WindowInsetsCompat.Type.systemBars());v.setPadding(x.left,x.top,x.right,x.bottom);return in;});actualizarRed();ConnectivityManager cm=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);netCb=new ConnectivityManager.NetworkCallback(){public void onAvailable(Network n){runOnUiThread(()->{actualizarRed();SyncScheduler.sincronizarAhora(MainActivity.this);NotificationCenter.sincronizar(MainActivity.this);});}public void onLost(Network n){runOnUiThread(()->actualizarRed());}};try{cm.registerDefaultNetworkCallback(netCb);}catch(Exception ignored){} if(Build.VERSION.SDK_INT>=33&&ContextCompat.checkSelfPermission(this,Manifest.permission.POST_NOTIFICATIONS)!=PackageManager.PERMISSION_GRANTED)registerForActivityResult(new ActivityResultContracts.RequestPermission(),ok->{}).launch(Manifest.permission.POST_NOTIFICATIONS);NotificationCenter.sincronizar(this);} @Override protected void onResume(){super.onResume();notifHandler.removeCallbacks(notifPoll);notifHandler.post(notifPoll);} @Override protected void onPause(){super.onPause();notifHandler.removeCallbacks(notifPoll);} private void actualizarRed(){binding.tvOfflineBanner.setVisibility(NetworkUtils.conectado(this)?android.view.View.GONE:android.view.View.VISIBLE);} @Override protected void onDestroy(){super.onDestroy();try{((ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE)).unregisterNetworkCallback(netCb);}catch(Exception ignored){}} }

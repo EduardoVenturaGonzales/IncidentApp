@@ -1,0 +1,4 @@
+package com.example.incidentapp.local;
+import android.content.Context; import androidx.room.*; import com.example.incidentapp.local.dao.*; import com.example.incidentapp.local.entity.*;
+@Database(entities={IncidenteEntity.class,HistorialEntity.class,SolicitudPendienteEntity.class},version=1,exportSchema=false)
+public abstract class AppDatabase extends RoomDatabase { private static volatile AppDatabase instance; public abstract IncidenteDao incidenteDao(); public abstract HistorialDao historialDao(); public abstract SolicitudPendienteDao solicitudPendienteDao(); public static synchronized void init(Context c){if(instance==null)instance=Room.databaseBuilder(c.getApplicationContext(),AppDatabase.class,"incidentapp_local.db").fallbackToDestructiveMigration().build();} public static AppDatabase get(){if(instance==null)throw new IllegalStateException("AppDatabase no inicializada");return instance;} }
