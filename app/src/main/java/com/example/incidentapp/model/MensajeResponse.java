@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 public class MensajeResponse {
     private String mensaje;
     private String error;

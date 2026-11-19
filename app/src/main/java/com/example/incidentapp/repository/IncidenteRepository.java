@@ -1,10 +1,7 @@
 package com.example.incidentapp.repository;
-
 import com.example.incidentapp.model.*;
 import com.example.incidentapp.network.RetrofitClient;
-
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -14,11 +11,9 @@ public class IncidenteRepository {
     public Call<IncidentesResponse> obtenerIncidentes(String estado, String prioridad) {
         return RetrofitClient.getApiService().obtenerIncidentes(estado, prioridad);
     }
-
     public Call<DetalleIncidenteResponse> obtenerIncidente(int idIncidente) {
         return RetrofitClient.getApiService().obtenerIncidente(idIncidente);
     }
-
     public Call<RegistroIncidenteResponse> registrarIncidente(
             String clientRequestId,
             String titulo,
@@ -45,12 +40,28 @@ public class IncidenteRepository {
     public Call<MensajeResponse> cambiarEstado(int idIncidente, String estado, String comentario) {
         return RetrofitClient.getApiService().cambiarEstado(idIncidente, new CambioEstadoRequest(estado, comentario));
     }
-    public Call<MensajeResponse> marcarVencimientoSla(int idIncidente) { return RetrofitClient.getApiService().marcarVencimientoSla(idIncidente); }
-    public Call<MensajeResponse> cambiarPrioridad(int idIncidente, String prioridad, String comentario) { return RetrofitClient.getApiService().cambiarPrioridad(idIncidente, new CambioPrioridadRequest(prioridad, comentario)); }
-    public Call<MensajeResponse> asignarTecnico(int idIncidente, int idTecnico) { return RetrofitClient.getApiService().asignarTecnico(idIncidente, new AsignarTecnicoRequest(idTecnico)); }
-    public Call<VerificarActivoResponse> verificarActivo(int idIncidente, String codigoQr) { return RetrofitClient.getApiService().verificarActivo(idIncidente, new VerificarActivoRequest(codigoQr)); }
-    public Call<MensajeResponse> solicitarAnulacion(int idIncidente, String motivo) { return RetrofitClient.getApiService().solicitarAnulacion(idIncidente, new MotivoAnulacionRequest(motivo)); }
-    public Call<SolicitudesAnulacionResponse> obtenerSolicitudesAnulacion(String estado) { return RetrofitClient.getApiService().obtenerSolicitudesAnulacion(estado); }
-    public Call<MensajeResponse> responderAnulacion(int idIncidente, String accion, String comentario) { return RetrofitClient.getApiService().responderAnulacion(idIncidente, new ResponderAnulacionRequest(accion, comentario)); }
-    public Call<MensajeResponse> eliminarIncidente(int idIncidente, String motivo) { return RetrofitClient.getApiService().eliminarIncidente(idIncidente, new EliminarIncidenteRequest(motivo)); }
+    public Call<MensajeResponse> marcarVencimientoSla(int idIncidente) {
+        return RetrofitClient.getApiService().marcarVencimientoSla(idIncidente);
+    }
+    public Call<MensajeResponse> cambiarPrioridad(int idIncidente, String prioridad, String comentario) {
+        return RetrofitClient.getApiService().cambiarPrioridad(idIncidente, new CambioPrioridadRequest(prioridad, comentario));
+    }
+    public Call<MensajeResponse> asignarTecnico(int idIncidente, int idTecnico) {
+        return RetrofitClient.getApiService().asignarTecnico(idIncidente, new AsignarTecnicoRequest(idTecnico));
+    }
+    public Call<VerificarActivoResponse> verificarActivo(int idIncidente, String codigoQr) {
+        return RetrofitClient.getApiService().verificarActivo(idIncidente, new VerificarActivoRequest(codigoQr));
+    }
+    public Call<MensajeResponse> solicitarAnulacion(int idIncidente, String motivo) {
+        return RetrofitClient.getApiService().solicitarAnulacion(idIncidente, new MotivoAnulacionRequest(motivo));
+    }
+    public Call<SolicitudesAnulacionResponse> obtenerSolicitudesAnulacion(String estado) {
+        return RetrofitClient.getApiService().obtenerSolicitudesAnulacion(estado);
+    }
+    public Call<MensajeResponse> responderAnulacion(int idIncidente, String accion, String comentario) {
+        return RetrofitClient.getApiService().responderAnulacion(idIncidente, new ResponderAnulacionRequest(accion, comentario));
+    }
+    public Call<MensajeResponse> eliminarIncidente(int idIncidente, String motivo) {
+        return RetrofitClient.getApiService().eliminarIncidente(idIncidente, new EliminarIncidenteRequest(motivo));
+    }
 }

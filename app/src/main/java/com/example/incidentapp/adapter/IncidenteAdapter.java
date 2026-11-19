@@ -1,3 +1,57 @@
 package com.example.incidentapp.adapter;
-import android.graphics.Color;import android.os.*;import android.view.*;import androidx.annotation.NonNull;import androidx.recyclerview.widget.RecyclerView;import com.example.incidentapp.databinding.ItemIncidenteBinding;import com.example.incidentapp.model.Incidente;import com.example.incidentapp.util.SlaUtils;import java.util.*;
-public class IncidenteAdapter extends RecyclerView.Adapter<IncidenteAdapter.VH>{public interface OnIncidenteClickListener{void onClick(Incidente i);}private final List<Incidente> lista=new ArrayList<>();private final OnIncidenteClickListener listener;private final Handler h=new Handler(Looper.getMainLooper());private final Runnable tick=new Runnable(){public void run(){notifyDataSetChanged();h.postDelayed(this,1000);}};public IncidenteAdapter(OnIncidenteClickListener l){listener=l;}public void setIncidentes(List<Incidente> x){lista.clear();if(x!=null)lista.addAll(x);notifyDataSetChanged();}@NonNull public VH onCreateViewHolder(@NonNull ViewGroup p,int v){return new VH(ItemIncidenteBinding.inflate(LayoutInflater.from(p.getContext()),p,false));}public void onBindViewHolder(@NonNull VH x,int pos){x.bind(lista.get(pos));}public int getItemCount(){return lista.size();}@Override public void onAttachedToRecyclerView(@NonNull RecyclerView r){super.onAttachedToRecyclerView(r);h.removeCallbacks(tick);h.post(tick);}@Override public void onDetachedFromRecyclerView(@NonNull RecyclerView r){super.onDetachedFromRecyclerView(r);h.removeCallbacks(tick);}class VH extends RecyclerView.ViewHolder{final ItemIncidenteBinding b;VH(ItemIncidenteBinding x){super(x.getRoot());b=x;}void bind(Incidente i){b.tvTicket.setText("Incidente #"+i.getId());b.tvTitulo.setText(i.getTitulo());b.tvEstado.setText(i.getEstado());b.tvPrioridad.setText(i.getPrioridad());b.tvFecha.setText(i.getFechaRegistro()==null?"Sin fecha":i.getFechaRegistro());b.tvTecnico.setText(i.getTecnico()==null||i.getTecnico().trim().isEmpty()?"Sin técnico asignado":i.getTecnico());int c="Alta".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#C62828"):"Media".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#EF6C00"):Color.parseColor("#2E7D32");b.tvPrioridad.setTextColor(c);SlaUtils.Estado s=SlaUtils.calcular(i);b.tvSla.setText(s.texto);b.tvSla.setTextColor(s.color==SlaUtils.ColorEstado.ROJO?Color.parseColor("#C62828"):s.color==SlaUtils.ColorEstado.AMARILLO?Color.parseColor("#EF6C00"):s.color==SlaUtils.ColorEstado.VERDE?Color.parseColor("#2E7D32"):Color.GRAY);b.getRoot().setOnClickListener(v->listener.onClick(i));}}}
+import android.graphics.Color;
+import android.os.*;
+import android.view.*;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.incidentapp.databinding.ItemIncidenteBinding;
+import com.example.incidentapp.model.Incidente;import com.example.incidentapp.util.SlaUtils;import java.util.*;
+public class IncidenteAdapter extends RecyclerView.Adapter<IncidenteAdapter.VH>{
+    public interface OnIncidenteClickListener{
+        void onClick(Incidente i);
+    }private final List<Incidente> lista=new ArrayList<>();
+    private final OnIncidenteClickListener listener;
+    private final Handler h=new Handler(Looper.getMainLooper());
+    private final Runnable tick=new Runnable(){
+        public void run(){notifyDataSetChanged();h.postDelayed(this,1000);}
+    };
+    public IncidenteAdapter(OnIncidenteClickListener l){
+        listener=l;
+    }
+    public void setIncidentes(List<Incidente> x){
+        lista.clear();if(x!=null)lista.addAll(x);notifyDataSetChanged();
+    }
+    @NonNull public VH onCreateViewHolder(@NonNull ViewGroup p,int v){
+        return new VH(ItemIncidenteBinding.inflate(LayoutInflater.from(p.getContext()),p,false));
+    }
+    public void onBindViewHolder(@NonNull VH x, int pos){
+        x.bind(lista.get(pos));
+    }
+    public int getItemCount(){
+        return lista.size();
+    }
+    @Override public void onAttachedToRecyclerView(@NonNull RecyclerView r){
+        super.onAttachedToRecyclerView(r);h.removeCallbacks(tick);h.post(tick);
+    }
+    @Override public void onDetachedFromRecyclerView(@NonNull RecyclerView r){
+        super.onDetachedFromRecyclerView(r);h.removeCallbacks(tick);
+    }
+    class VH extends RecyclerView.ViewHolder{
+        final ItemIncidenteBinding b;VH(ItemIncidenteBinding x){
+            super(x.getRoot());b=x;
+        }void bind(Incidente i){
+            b.tvTicket.setText("Incidente #"+i.getId());
+            b.tvTitulo.setText(i.getTitulo());
+            b.tvEstado.setText(i.getEstado());
+            b.tvPrioridad.setText(i.getPrioridad());
+            b.tvFecha.setText(i.getFechaRegistro()==null?"Sin fecha":i.getFechaRegistro());
+            b.tvTecnico.setText(i.getTecnico()==null||i.getTecnico().trim().isEmpty()?"Sin técnico asignado":i.getTecnico());
+            int c="Alta".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#C62828"):"Media".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#EF6C00"):Color.parseColor("#2E7D32");
+            b.tvPrioridad.setTextColor(c);
+            SlaUtils.Estado s=SlaUtils.calcular(i);
+            b.tvSla.setText(s.texto);
+            b.tvSla.setTextColor(s.color==SlaUtils.ColorEstado.ROJO?Color.parseColor("#C62828"):s.color==SlaUtils.ColorEstado.AMARILLO?Color.parseColor("#EF6C00"):s.color==SlaUtils.ColorEstado.VERDE?Color.parseColor("#2E7D32"):Color.GRAY);
+            b.getRoot().setOnClickListener(v->listener.onClick(i));
+        }
+    }
+}

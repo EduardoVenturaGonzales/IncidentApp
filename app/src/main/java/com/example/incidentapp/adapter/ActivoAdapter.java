@@ -1,14 +1,10 @@
 package com.example.incidentapp.adapter;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.incidentapp.databinding.ItemActivoBinding;
 import com.example.incidentapp.model.Activo;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +15,9 @@ public class ActivoAdapter extends RecyclerView.Adapter<ActivoAdapter.ViewHolder
     }
     private final Listener listener;
     private final List<Activo> activos = new ArrayList<>();
-
-    public ActivoAdapter(Listener listener) { this.listener = listener; }
+    public ActivoAdapter(Listener listener) {
+        this.listener = listener;
+    }
     public void setActivos(List<Activo> lista) { activos.clear(); if (lista != null) activos.addAll(lista); notifyDataSetChanged(); }
     @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(ItemActivoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));

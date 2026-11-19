@@ -1,16 +1,13 @@
 package com.example.incidentapp.ui.gestion;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.incidentapp.adapter.EmpresaGestionAdapter;
 import com.example.incidentapp.databinding.FragmentGestionEmpresasBinding;
 import com.example.incidentapp.model.Empresa;
@@ -58,7 +55,9 @@ public class GestionEmpresasFragment extends Fragment {
         String ruc = binding.etRuc.getText() == null ? "" : binding.etRuc.getText().toString().trim();
         binding.tilNombre.setError(null); binding.tilRuc.setError(null);
         if (nombre.isEmpty()) { binding.tilNombre.setError("El nombre es obligatorio"); return; }
-        if (!ruc.isEmpty() && ruc.length() != 11) { binding.tilRuc.setError("El RUC debe tener 11 dígitos"); return; }
+        if (!ruc.isEmpty() && ruc.length() != 11) {
+            binding.tilRuc.setError("El RUC debe tener 11 dígitos"); return;
+        }
         viewModel.registrar(nombre, ruc);
         binding.etNombre.setText(""); binding.etRuc.setText("");
     }

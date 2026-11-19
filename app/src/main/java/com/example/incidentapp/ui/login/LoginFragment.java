@@ -1,15 +1,12 @@
 package com.example.incidentapp.ui.login;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentLoginBinding;
 import com.example.incidentapp.model.LoginResponse;
@@ -18,16 +15,11 @@ import com.example.incidentapp.viewmodel.LoginViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment {
-
     private FragmentLoginBinding binding;
     private LoginViewModel viewModel;
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -35,16 +27,13 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
         if (SessionManager.getInstance().haySesion()) {
             irAlInicio();
             return;
         }
 
         binding.btnIngresar.setOnClickListener(v -> validarEIniciarSesion());
-
         viewModel.getLoading().observe(getViewLifecycleOwner(), cargando -> {
             boolean activo = Boolean.TRUE.equals(cargando);
             binding.progressLogin.setVisibility(activo ? View.VISIBLE : View.GONE);
@@ -99,8 +88,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void irAlInicio() {
-        NavHostFragment.findNavController(this)
-                .navigate(R.id.action_loginFragment_to_homeFragment);
+        NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_homeFragment);
     }
 
     @Override

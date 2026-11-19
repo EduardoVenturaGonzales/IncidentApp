@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 public class LoginRequest {
     private final String correo;
     private final String contrasena;

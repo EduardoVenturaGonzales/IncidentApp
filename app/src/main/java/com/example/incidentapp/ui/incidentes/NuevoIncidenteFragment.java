@@ -1,5 +1,4 @@
 package com.example.incidentapp.ui.incidentes;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -18,7 +16,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentNuevoIncidenteBinding;
 import com.example.incidentapp.model.Activo;
@@ -30,23 +27,19 @@ import com.example.incidentapp.viewmodel.NuevoIncidenteViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.MultipartBody;
 
 public class NuevoIncidenteFragment extends Fragment {
-
     private FragmentNuevoIncidenteBinding binding;
     private NuevoIncidenteViewModel viewModel;
     private final List<Sucursal> sucursales = new ArrayList<>();
     private final List<Uri> fotos = new ArrayList<>();
     private Integer idActivoSeleccionado = null;
     private Uri fotoPendienteUri;
-
     private final ActivityResultLauncher<String> permisoCamara = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             concedido -> {
@@ -113,9 +106,7 @@ public class NuevoIncidenteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         viewModel = new ViewModelProvider(this).get(NuevoIncidenteViewModel.class);
-
         binding.actCategoria.setAdapter(new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
@@ -161,9 +152,6 @@ public class NuevoIncidenteFragment extends Fragment {
                     nombres
             ));
 
-            // La API devuelve únicamente la sucursal asociada al usuario autenticado.
-            // Si solo existe una, la seleccionamos automáticamente y evitamos que el
-            // solicitante intente registrar el incidente en otra sede.
             if (sucursales.size() == 1) {
                 binding.actSucursal.setText(sucursales.get(0).getNombre(), false);
                 binding.actSucursal.setEnabled(false);
@@ -180,9 +168,7 @@ public class NuevoIncidenteFragment extends Fragment {
                 binding.tvActivoSeleccionado.setText("Sin activo seleccionado");
             } else {
                 idActivoSeleccionado = activo.getId();
-                binding.tvActivoSeleccionado.setText(
-                        activo.getNombre() + " · " + activo.getCodigoQr() + " · " + activo.getSucursal()
-                );
+                binding.tvActivoSeleccionado.setText(activo.getNombre() + " · " + activo.getCodigoQr() + " · " + activo.getSucursal());
             }
         });
 
@@ -215,19 +201,20 @@ public class NuevoIncidenteFragment extends Fragment {
                         }
                         Bundle args = new Bundle();
                         args.putInt("id_incidente", id);
-                        NavHostFragment.findNavController(NuevoIncidenteFragment.this)
-                                .navigate(
-                                        R.id.action_nuevoIncidenteFragment_to_detalleIncidenteFragment,
-                                        args
-                                );
+                        NavHostFragment.findNavController(NuevoIncidenteFragment.this).navigate(R.id.action_nuevoIncidenteFragment_to_detalleIncidenteFragment, args);
                     }
                 });
                 snackbar.show();
             }
         });
 
-        viewModel.getPendiente().observe(getViewLifecycleOwner(), evento -> { Boolean ok = evento.getContentIfNotHandled(); if (Boolean.TRUE.equals(ok) && binding != null) { Snackbar.make(binding.getRoot(), "Incidente guardado. Se enviará automáticamente al volver Internet.", Snackbar.LENGTH_LONG).show(); NavHostFragment.findNavController(this).popBackStack(); } });
-
+        viewModel.getPendiente().observe(getViewLifecycleOwner(), evento -> {
+            Boolean ok = evento.getContentIfNotHandled();
+            if (Boolean.TRUE.equals(ok) && binding != null) {
+                Snackbar.make(binding.getRoot(), "Incidente guardado. Se enviará automáticamente al volver Internet.", Snackbar.LENGTH_LONG).show();
+                NavHostFragment.findNavController(this).popBackStack();
+            }
+        });
         viewModel.cargarSucursales();
     }
 
@@ -259,27 +246,11 @@ public class NuevoIncidenteFragment extends Fragment {
             if (!carpeta.exists() && !carpeta.mkdirs()) {
                 throw new IOException("No se pudo preparar la carpeta temporal");
             }
-
-            File archivo = File.createTempFile(
-                    "incidente_",
-                    ".jpg",
-                    carpeta
-            );
-
-            fotoPendienteUri = FileProvider.getUriForFile(
-                    requireContext(),
-                    requireContext().getPackageName() + ".fileprovider",
-                    archivo
-            );
-
+            File archivo = File.createTempFile("incidente_", ".jpg", carpeta);
+            fotoPendienteUri = FileProvider.getUriForFile(requireContext(), requireContext().getPackageName() + ".fileprovider", archivo);
             tomarFoto.launch(fotoPendienteUri);
-
         } catch (IOException e) {
-            Snackbar.make(
-                    binding.getRoot(),
-                    "No se pudo abrir la cámara",
-                    Snackbar.LENGTH_LONG
-            ).show();
+            Snackbar.make(binding.getRoot(), "No se pudo abrir la cámara", Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -333,7 +304,6 @@ public class NuevoIncidenteFragment extends Fragment {
             Snackbar.make(binding.getRoot(), "No se pudo preparar una de las imágenes", Snackbar.LENGTH_LONG).show();
             return;
         }
-
         viewModel.registrar(titulo, descripcion, categoria, prioridad, sucursal.getId(), idActivoSeleccionado, partes, fotosPersistentes, requireContext().getApplicationContext());
     }
 
@@ -369,19 +339,13 @@ public class NuevoIncidenteFragment extends Fragment {
 
             ImageView image = preview.findViewById(R.id.ivFotoPreview);
             View btnEliminar = preview.findViewById(R.id.btnEliminarFoto);
-
             image.setImageURI(uri);
 
             btnEliminar.setOnClickListener(v -> {
                 fotos.remove(uri);
                 mostrarPrevisualizacion();
-                Snackbar.make(
-                        binding.getRoot(),
-                        "Foto eliminada. Puedes agregar otra.",
-                        Snackbar.LENGTH_SHORT
-                ).show();
+                Snackbar.make(binding.getRoot(), "Foto eliminada. Puedes agregar otra.", Snackbar.LENGTH_SHORT).show();
             });
-
             binding.contenedorPreviews.addView(preview);
         }
     }

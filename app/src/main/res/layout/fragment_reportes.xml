@@ -1,1 +1,218 @@
-<?xml version="1.0" encoding="utf-8"?><androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/incidentapp_light"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp"><com.google.android.material.button.MaterialButton android:id="@+id/btnVolver" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Volver"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reportes y métricas" android:textSize="26sp" android:textStyle="bold" android:textColor="@color/incidentapp_dark"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Resumen de la sucursal" android:textColor="@color/text_secondary"/><com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:visibility="gone"/><com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" app:cardCornerRadius="16dp"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="18dp" android:orientation="vertical"><TextView android:text="Total de incidentes" android:layout_width="wrap_content" android:layout_height="wrap_content"/><TextView android:id="@+id/tvTotal" android:text="0" android:textSize="34sp" android:textStyle="bold" android:textColor="@color/incidentapp_red" android:layout_width="wrap_content" android:layout_height="wrap_content"/><TextView android:id="@+id/tvEstados" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"/><TextView android:id="@+id/tvPrioridades" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/></LinearLayout></com.google.android.material.card.MaterialCardView><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp"><com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="120dp" android:layout_weight="1" android:layout_marginEnd="6dp"><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical"><TextView android:text="SLA vencidos" android:layout_width="wrap_content" android:layout_height="wrap_content"/><TextView android:id="@+id/tvSla" android:text="0" android:textSize="30sp" android:textStyle="bold" android:textColor="@color/incidentapp_red" android:layout_width="wrap_content" android:layout_height="wrap_content"/></LinearLayout></com.google.android.material.card.MaterialCardView><com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="120dp" android:layout_weight="1" android:layout_marginStart="6dp"><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical"><TextView android:text="Promedio resolución" android:layout_width="wrap_content" android:layout_height="wrap_content"/><TextView android:id="@+id/tvPromedio" android:text="0 h" android:textSize="26sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/></LinearLayout></com.google.android.material.card.MaterialCardView></LinearLayout><com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="18dp" android:orientation="vertical"><TextView android:text="Personal" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/><TextView android:id="@+id/tvUsuarios" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"/><TextView android:text="Activos TI" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp"/><TextView android:id="@+id/tvActivos" android:layout_width="match_parent" android:layout_height="wrap_content"/><TextView android:text="Solicitudes de anulación pendientes" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp"/><TextView android:id="@+id/tvAnulaciones" android:layout_width="match_parent" android:layout_height="wrap_content"/><TextView android:text="Incidentes por categoría" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp"/><TextView android:id="@+id/tvCategorias" android:layout_width="match_parent" android:layout_height="wrap_content"/></LinearLayout></com.google.android.material.card.MaterialCardView></LinearLayout></androidx.core.widget.NestedScrollView>
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/incidentapp_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVolver"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reportes y métricas"
+            android:textColor="@color/incidentapp_dark"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resumen de la sucursal"
+            android:textColor="@color/text_secondary" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total de incidentes" />
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/incidentapp_red"
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvEstados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/tvPrioridades"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SLA vencidos" />
+
+                    <TextView
+                        android:id="@+id/tvSla"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/incidentapp_red"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Promedio resolución" />
+
+                    <TextView
+                        android:id="@+id/tvPromedio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 h"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvUsuarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Activos TI"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvActivos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Solicitudes de anulación pendientes"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAnulaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Incidentes por categoría"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCategorias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

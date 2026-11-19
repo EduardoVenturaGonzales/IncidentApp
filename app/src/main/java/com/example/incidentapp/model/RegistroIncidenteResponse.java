@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 import com.google.gson.annotations.SerializedName;
 
 public class RegistroIncidenteResponse {
@@ -9,9 +8,19 @@ public class RegistroIncidenteResponse {
     @SerializedName("client_request_id") private String clientRequestId;
     @SerializedName("ya_existia") private boolean yaExistia;
 
-    public String getMensaje() { return mensaje; }
-    public int getIdIncidente() { return idIncidente; }
-    public int getCantidadFotos() { return cantidadFotos; }
-    public String getClientRequestId() { return clientRequestId; }
-    public boolean isYaExistia() { return yaExistia; }
+    public String getMensaje() {
+        return mensaje;
+    }
+    public int getIdIncidente() {
+        return idIncidente;
+    }
+    public int getCantidadFotos() {
+        return cantidadFotos;
+    }
+    public String getClientRequestId() {
+        return clientRequestId;
+    }
+    public boolean isYaExistia() {
+        return yaExistia;
+    }
 }

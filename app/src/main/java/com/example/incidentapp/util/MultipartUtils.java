@@ -1,12 +1,9 @@
 package com.example.incidentapp.util;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
-
 import java.io.*;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -15,7 +12,6 @@ import okio.BufferedSink;
 public final class MultipartUtils {
     private MultipartUtils() {}
 
-    // RequestBody por streaming: evita cargar la foto completa en RAM.
     public static MultipartBody.Part crearParteFoto(Context context, Uri uri) throws IOException {
         String nombre = obtenerNombre(context, uri);
         String tipo = context.getContentResolver().getType(uri);

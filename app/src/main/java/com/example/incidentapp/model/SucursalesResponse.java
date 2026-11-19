@@ -4,5 +4,7 @@ import java.util.List;
 
 public class SucursalesResponse {
     private List<Sucursal> sucursales;
-    public List<Sucursal> getSucursales() { return sucursales; }
+    public List<Sucursal> getSucursales() {
+        return sucursales;
+    }
 }

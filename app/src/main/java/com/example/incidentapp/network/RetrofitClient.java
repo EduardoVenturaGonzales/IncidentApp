@@ -1,7 +1,5 @@
 package com.example.incidentapp.network;
-
 import com.example.incidentapp.session.SessionManager;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -15,7 +13,6 @@ public final class RetrofitClient {
     public static synchronized ApiService getApiService() {
         if (apiService == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            // Evita imprimir JWT, contraseñas, cuerpos de incidentes y fotos en Logcat.
             logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
             OkHttpClient client = new OkHttpClient.Builder()
@@ -24,9 +21,7 @@ public final class RetrofitClient {
                         String token = SessionManager.getInstance().getToken();
                         if (token != null && !token.trim().isEmpty()) builder.header("Authorization", "JWT " + token);
                         return chain.proceed(builder.build());
-                    })
-                    .addInterceptor(logging)
-                    .build();
+                    }).addInterceptor(logging).build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

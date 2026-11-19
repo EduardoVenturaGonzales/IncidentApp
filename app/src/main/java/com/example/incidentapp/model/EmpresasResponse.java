@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 import java.util.List;
 
 public class EmpresasResponse {

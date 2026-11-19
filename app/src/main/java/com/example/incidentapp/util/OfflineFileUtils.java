@@ -1,14 +1,11 @@
 package com.example.incidentapp.util;
-
 import android.content.Context;
 import android.net.Uri;
-
 import java.io.*;
 import java.util.*;
 
 public final class OfflineFileUtils {
     private OfflineFileUtils() {}
-
     public static List<String> copiar(Context context, List<Uri> uris) throws IOException {
         List<String> out = new ArrayList<>();
         File dir = new File(context.getFilesDir(), "pendientes");
@@ -27,7 +24,6 @@ public final class OfflineFileUtils {
             }
             return out;
         } catch (IOException e) {
-            // Si falla una de varias copias, no dejamos archivos parciales huérfanos.
             borrar(out);
             throw e;
         }

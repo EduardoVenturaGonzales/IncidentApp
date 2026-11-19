@@ -1,8 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/incidentapp_light" android:fillViewport="true"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-<LinearLayout android:layout_width="match_parent" android:layout_height="84dp" android:background="@color/white" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp"><ImageView android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/logo_incidentapp_v2" android:contentDescription="@string/logo_incidentapp"/><TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:text="IncidentApp" android:textColor="@color/incidentapp_dark" android:textSize="22sp" android:textStyle="bold"/><FrameLayout android:id="@+id/contenedorNotificaciones" android:layout_width="56dp" android:layout_height="56dp"><ImageButton android:id="@+id/btnNotificaciones" android:layout_width="56dp" android:layout_height="56dp" android:background="?attr/selectableItemBackgroundBorderless" android:padding="15dp" android:src="@drawable/ic_notification_2d" android:contentDescription="Notificaciones"/><TextView android:id="@+id/tvBadgeNotificaciones" android:layout_width="22dp" android:layout_height="22dp" android:layout_gravity="top|end" android:background="@drawable/bg_badge_red" android:gravity="center" android:text="0" android:textColor="@color/white" android:textSize="11sp" android:textStyle="bold" android:visibility="gone"/></FrameLayout></LinearLayout>
-<View android:layout_width="match_parent" android:layout_height="4dp" android:background="@color/incidentapp_red"/>
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp"><TextView android:id="@+id/tvBienvenida" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Bienvenido" android:textColor="@color/text_secondary"/><TextView android:id="@+id/tvUsuario" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Sucursal" android:textColor="@color/incidentapp_dark" android:textSize="25sp" android:textStyle="bold"/><com.google.android.material.chip.Chip android:id="@+id/tvRol" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Rol" app:chipBackgroundColor="@color/white" app:chipStrokeColor="@color/incidentapp_red" app:chipStrokeWidth="1dp"/><com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progressHome" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:visibility="gone" app:indicatorColor="@color/incidentapp_red"/>
-<TextView android:id="@+id/tvTituloResumen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="Resumen de incidentes" android:textColor="@color/incidentapp_dark" android:textSize="18sp" android:textStyle="bold"/><LinearLayout android:id="@+id/contenedorResumenIncidentes" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="horizontal"><com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="100dp" android:layout_weight="1" android:layout_marginEnd="5dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="16dp"><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/tvCantidadAbiertos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/incidentapp_red" android:textSize="28sp" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Abiertos"/></LinearLayout></com.google.android.material.card.MaterialCardView><com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="100dp" android:layout_weight="1" android:layout_marginHorizontal="5dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="16dp"><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/tvCantidadProceso" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="28sp" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="En proceso"/></LinearLayout></com.google.android.material.card.MaterialCardView><com.google.android.material.card.MaterialCardView android:layout_width="0dp" android:layout_height="100dp" android:layout_weight="1" android:layout_marginStart="5dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="16dp"><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/tvCantidadResueltos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="28sp" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Resueltos"/></LinearLayout></com.google.android.material.card.MaterialCardView></LinearLayout>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="Acciones rápidas" android:textColor="@color/incidentapp_dark" android:textSize="18sp" android:textStyle="bold"/>
-<com.google.android.material.button.MaterialButton android:id="@+id/btnVerIncidentes" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="12dp" android:text="Ver incidentes" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_dark"/><com.google.android.material.button.MaterialButton android:id="@+id/btnNuevoIncidente" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Reportar incidente" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_red"/><com.google.android.material.button.MaterialButton android:id="@+id/btnVerMapa" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Ver mapa" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_dark"/><com.google.android.material.button.MaterialButton android:id="@+id/btnCompartirUbicacion" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Compartir mi ubicación" android:textAllCaps="false" android:visibility="gone" app:backgroundTint="@color/incidentapp_red"/><com.google.android.material.button.MaterialButton android:id="@+id/btnReportes" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Reportes y métricas" android:textAllCaps="false" android:visibility="gone" app:backgroundTint="@color/incidentapp_dark"/><com.google.android.material.button.MaterialButton android:id="@+id/btnGestionEmpresas" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Gestionar empresas" android:textAllCaps="false"/><com.google.android.material.button.MaterialButton android:id="@+id/btnRegistrarSucursal" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Gestionar sucursales" android:textAllCaps="false"/><com.google.android.material.button.MaterialButton android:id="@+id/btnRegistrarUsuario" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Gestionar usuarios" android:textAllCaps="false"/><com.google.android.material.button.MaterialButton android:id="@+id/btnGestionActivos" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Gestionar Activos TI" android:textAllCaps="false"/><com.google.android.material.button.MaterialButton android:id="@+id/btnSolicitudesAnulacion" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="10dp" android:text="Incidentes por anular" android:textAllCaps="false"/><com.google.android.material.button.MaterialButton android:id="@+id/btnCerrarSesion" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="26dp" android:text="Cerrar sesión" android:textColor="@color/incidentapp_red" android:textAllCaps="false" app:strokeColor="@color/incidentapp_red"/></LinearLayout></LinearLayout></androidx.core.widget.NestedScrollView>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/incidentapp_light"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/logo_incidentapp_v2"
+                android:contentDescription="@string/logo_incidentapp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="IncidentApp"
+                android:textColor="@color/incidentapp_dark"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+
+            <FrameLayout
+                android:id="@+id/contenedorNotificaciones"
+                android:layout_width="56dp"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/btnNotificaciones"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_notification_2d"
+                    android:contentDescription="Notificaciones"/>
+
+                <TextView
+                    android:id="@+id/tvBadgeNotificaciones"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_badge_red"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+            </FrameLayout></LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/incidentapp_red"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvBienvenida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido"
+                android:textColor="@color/text_secondary"/>
+
+            <TextView
+                android:id="@+id/tvUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Sucursal"
+                android:textColor="@color/incidentapp_dark"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tvRol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Rol"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/incidentapp_red"
+                app:chipStrokeWidth="1dp"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:indicatorColor="@color/incidentapp_red"/>
+
+            <TextView
+                android:id="@+id/tvTituloResumen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Resumen de incidentes"
+                android:textColor="@color/incidentapp_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:id="@+id/contenedorResumenIncidentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvCantidadAbiertos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/incidentapp_red"
+                            android:textSize="28sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Abiertos"/>
+
+                    </LinearLayout></com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvCantidadProceso"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="28sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="En proceso"/>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvCantidadResueltos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="28sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Resueltos"/>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Acciones rápidas"
+                android:textColor="@color/incidentapp_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerIncidentes"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="12dp"
+                android:text="Ver incidentes"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/incidentapp_dark"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNuevoIncidente"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Reportar incidente"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/incidentapp_red"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerMapa"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Ver mapa"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/incidentapp_dark"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCompartirUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Compartir mi ubicación"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:backgroundTint="@color/incidentapp_red"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReportes"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Reportes y métricas"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:backgroundTint="@color/incidentapp_dark"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGestionEmpresas"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Gestionar empresas"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegistrarSucursal"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Gestionar sucursales"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegistrarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Gestionar usuarios"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGestionActivos"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Gestionar Activos TI"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSolicitudesAnulacion"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:text="Incidentes por anular"
+                android:textAllCaps="false"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCerrarSesion"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="26dp"
+                android:text="Cerrar sesión"
+                android:textColor="@color/incidentapp_red"
+                android:textAllCaps="false"
+                app:strokeColor="@color/incidentapp_red"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

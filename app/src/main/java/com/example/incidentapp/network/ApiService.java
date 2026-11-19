@@ -1,9 +1,6 @@
 package com.example.incidentapp.network;
-
 import com.example.incidentapp.model.*;
-
 import java.util.List;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;

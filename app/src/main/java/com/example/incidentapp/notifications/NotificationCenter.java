@@ -1,5 +1,4 @@
 package com.example.incidentapp.notifications;
-
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,11 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-
 import com.example.incidentapp.MainActivity;
 import com.example.incidentapp.R;
 import com.example.incidentapp.model.MensajeResponse;
@@ -20,25 +17,18 @@ import com.example.incidentapp.model.Notificacion;
 import com.example.incidentapp.model.NotificacionesResponse;
 import com.example.incidentapp.repository.NotificacionRepository;
 import com.example.incidentapp.session.SessionManager;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public final class NotificationCenter {
-    // ID nuevo para que Android cree el canal con importancia HIGH aunque existiera el canal anterior.
     private static final String CHANNEL = "incidentapp_alertas_v2";
     private NotificationCenter() {}
 
     public static void crearCanal(Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationChannel ch = new NotificationChannel(
-                    CHANNEL,
-                    "Alertas de incidentes",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
+            NotificationChannel ch = new NotificationChannel(CHANNEL, "Alertas de incidentes", NotificationManager.IMPORTANCE_HIGH);
             ch.setDescription("Avisos de nuevos incidentes, asignaciones y cambios de estado");
             ch.enableVibration(true);
             context.getSystemService(NotificationManager.class).createNotificationChannel(ch);
@@ -68,8 +58,7 @@ public final class NotificationCenter {
     }
 
     private static boolean mostrar(Context context, Notificacion n) {
-        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(
-                context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             return false;
         }
 
@@ -77,13 +66,7 @@ public final class NotificationCenter {
         i.putExtra("id_incidente", n.getIdIncidente() == null ? 0 : n.getIdIncidente());
         i.putExtra("tipo_notificacion", n.getTipo());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        PendingIntent pi = PendingIntent.getActivity(
-                context,
-                n.getId(),
-                i,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent pi = PendingIntent.getActivity(context, n.getId(), i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder b = new NotificationCompat.Builder(context, CHANNEL)
                 .setSmallIcon(R.drawable.ic_notification_2d)

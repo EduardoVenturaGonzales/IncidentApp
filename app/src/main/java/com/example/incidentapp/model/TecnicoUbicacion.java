@@ -1,3 +1,66 @@
 package com.example.incidentapp.model;
 import com.google.gson.annotations.SerializedName;
-public class TecnicoUbicacion { @SerializedName("id_tecnico") private int idTecnico; private String tecnico,correo,sucursal; @SerializedName("id_sucursal") private int idSucursal; private Double latitud,longitud; @SerializedName("precision_m") private Double precisionM; private int compartiendo; @SerializedName("fecha_actualizacion") private String fechaActualizacion; @SerializedName("id_incidente") private Integer idIncidente; @SerializedName("incidente_titulo") private String incidenteTitulo; @SerializedName("incidente_estado") private String incidenteEstado; @SerializedName("incidente_prioridad") private String incidentePrioridad; public int getIdTecnico(){return idTecnico;} public String getTecnico(){return tecnico;} public String getCorreo(){return correo;} public String getSucursal(){return sucursal;} public int getIdSucursal(){return idSucursal;} public Double getLatitud(){return latitud;} public Double getLongitud(){return longitud;} public Double getPrecisionM(){return precisionM;} public boolean isCompartiendo(){return compartiendo==1;} public String getFechaActualizacion(){return fechaActualizacion;} public Integer getIdIncidente(){return idIncidente;} public String getIncidenteTitulo(){return incidenteTitulo;} public String getIncidenteEstado(){return incidenteEstado;} public String getIncidentePrioridad(){return incidentePrioridad;} }
+
+public class TecnicoUbicacion {
+    @SerializedName("id_tecnico")
+    private int idTecnico;
+    private String tecnico,correo,sucursal;
+    @SerializedName("id_sucursal")
+    private int idSucursal;
+    private Double latitud,longitud;
+    @SerializedName("precision_m")
+    private Double precisionM;
+    private int compartiendo;
+    @SerializedName("fecha_actualizacion")
+    private String fechaActualizacion;
+    @SerializedName("id_incidente")
+    private Integer idIncidente;
+    @SerializedName("incidente_titulo")
+    private String incidenteTitulo;
+    @SerializedName("incidente_estado")
+    private String incidenteEstado;
+    @SerializedName("incidente_prioridad")
+    private String incidentePrioridad;
+    public int getIdTecnico(){
+        return idTecnico;
+    }
+    public String getTecnico(){
+        return tecnico;
+    }
+    public String getCorreo(){
+        return correo;
+    }
+    public String getSucursal(){
+        return sucursal;
+    }
+    public int getIdSucursal(){
+        return idSucursal;
+    }
+    public Double getLatitud(){
+        return latitud;
+    }
+    public Double getLongitud(){
+        return longitud;
+    }
+    public Double getPrecisionM(){
+        return precisionM;
+    }
+    public boolean isCompartiendo(){
+        return compartiendo==1;
+    }
+    public String getFechaActualizacion(){
+        return fechaActualizacion;
+    }
+    public Integer getIdIncidente(){
+        return idIncidente;
+    }
+    public String getIncidenteTitulo(){
+        return incidenteTitulo;
+    }
+    public String getIncidenteEstado(){
+        return incidenteEstado;
+    }
+    public String getIncidentePrioridad(){
+        return incidentePrioridad;
+    }
+}

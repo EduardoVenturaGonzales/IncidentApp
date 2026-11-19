@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 public class CambioEstadoRequest {
     private final String estado;
     private final String comentario;

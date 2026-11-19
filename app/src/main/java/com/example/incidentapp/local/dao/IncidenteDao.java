@@ -1,5 +1,4 @@
 package com.example.incidentapp.local.dao;
-
 import androidx.room.*;
 import com.example.incidentapp.local.entity.IncidenteEntity;
 import java.util.List;

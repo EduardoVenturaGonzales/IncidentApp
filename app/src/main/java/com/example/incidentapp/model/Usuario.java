@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Usuario {
@@ -17,13 +16,31 @@ public class Usuario {
     @SerializedName("id_sucursal")
     private int idSucursal;
 
-    public int getId() { return id; }
-    public String getNombre() { return nombre; }
-    public String getCorreo() { return correo; }
-    public String getRol() { return rol; }
-    public int getActivo() { return activo; }
-    public String getSucursal() { return sucursal; }
-    public String getEmpresa() { return empresa; }
-    public int getIdEmpresa() { return idEmpresa; }
-    public int getIdSucursal() { return idSucursal; }
+    public int getId() {
+        return id;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getCorreo() {
+        return correo;
+    }
+    public String getRol() {
+        return rol;
+    }
+    public int getActivo() {
+        return activo;
+    }
+    public String getSucursal() {
+        return sucursal;
+    }
+    public String getEmpresa() {
+        return empresa;
+    }
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+    public int getIdSucursal() {
+        return idSucursal;
+    }
 }

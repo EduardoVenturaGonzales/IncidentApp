@@ -1,16 +1,13 @@
 package com.example.incidentapp.ui.notificaciones;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.incidentapp.R;
 import com.example.incidentapp.adapter.NotificacionAdapter;
 import com.example.incidentapp.databinding.FragmentNotificacionesBinding;
@@ -38,7 +35,10 @@ public class NotificacionesFragment extends Fragment {
             adapter.setItems(lista); binding.tvVacio.setVisibility(lista == null || lista.isEmpty() ? View.VISIBLE : View.GONE);
         });
         viewModel.getLoading().observe(getViewLifecycleOwner(), l -> binding.progress.setVisibility(Boolean.TRUE.equals(l) ? View.VISIBLE : View.GONE));
-        viewModel.getMensaje().observe(getViewLifecycleOwner(), e -> { String m=e.getContentIfNotHandled(); if(m!=null) Snackbar.make(binding.getRoot(),m,Snackbar.LENGTH_LONG).show(); });
+        viewModel.getMensaje().observe(getViewLifecycleOwner(), e -> {
+            String m=e.getContentIfNotHandled();
+            if(m!=null) Snackbar.make(binding.getRoot(),m,Snackbar.LENGTH_LONG).show();
+        });
         viewModel.cargar();
     }
 
@@ -53,5 +53,8 @@ public class NotificacionesFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.action_notificacionesFragment_to_detalleIncidenteFragment, args);
         }
     }
-    @Override public void onDestroyView() { super.onDestroyView(); binding=null; }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView(); binding=null;
+    }
 }

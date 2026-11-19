@@ -1,3 +1,62 @@
 package com.example.incidentapp.model;
-import com.google.gson.annotations.SerializedName; import java.util.List; import java.util.Map;
-public class ReporteResumen { @SerializedName("total_incidentes") private int totalIncidentes; @SerializedName("por_estado") private Map<String,Integer> porEstado; @SerializedName("por_prioridad") private Map<String,Integer> porPrioridad; @SerializedName("por_categoria") private List<CategoriaCantidad> porCategoria; @SerializedName("sla_vencidos") private int slaVencidos; @SerializedName("tiempo_promedio_resolucion_horas") private double tiempoPromedioResolucionHoras; private UsuariosResumen usuarios; @SerializedName("activos_ti") private int activosTi; @SerializedName("solicitudes_anulacion_pendientes") private int solicitudesAnulacionPendientes; public int getTotalIncidentes(){return totalIncidentes;} public Map<String,Integer> getPorEstado(){return porEstado;} public Map<String,Integer> getPorPrioridad(){return porPrioridad;} public List<CategoriaCantidad> getPorCategoria(){return porCategoria;} public int getSlaVencidos(){return slaVencidos;} public double getTiempoPromedioResolucionHoras(){return tiempoPromedioResolucionHoras;} public UsuariosResumen getUsuarios(){return usuarios;} public int getActivosTi(){return activosTi;} public int getSolicitudesAnulacionPendientes(){return solicitudesAnulacionPendientes;} public static class UsuariosResumen{private int tecnicos,solicitantes,administradores; public int getTecnicos(){return tecnicos;} public int getSolicitantes(){return solicitantes;} public int getAdministradores(){return administradores;}} }
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
+import java.util.Map;
+public class ReporteResumen {
+    @SerializedName("total_incidentes")
+    private int totalIncidentes;
+    @SerializedName("por_estado")
+    private Map<String,Integer> porEstado;
+    @SerializedName("por_prioridad")
+    private Map<String,Integer> porPrioridad;
+    @SerializedName("por_categoria")
+    private List<CategoriaCantidad> porCategoria;
+    @SerializedName("sla_vencidos")
+    private int slaVencidos;
+    @SerializedName("tiempo_promedio_resolucion_horas")
+    private double tiempoPromedioResolucionHoras;
+    private UsuariosResumen usuarios;
+    @SerializedName("activos_ti")
+    private int activosTi;
+    @SerializedName("solicitudes_anulacion_pendientes")
+    private int solicitudesAnulacionPendientes;
+    public int getTotalIncidentes(){
+        return totalIncidentes;
+    }
+    public Map<String,Integer> getPorEstado(){
+        return porEstado;
+    }
+    public Map<String,Integer> getPorPrioridad(){
+        return porPrioridad;
+    }
+    public List<CategoriaCantidad> getPorCategoria(){
+        return porCategoria;
+    }
+    public int getSlaVencidos(){
+        return slaVencidos;
+    }
+    public double getTiempoPromedioResolucionHoras(){
+        return tiempoPromedioResolucionHoras;
+    }
+    public UsuariosResumen getUsuarios(){
+        return usuarios;
+    }
+    public int getActivosTi(){
+        return activosTi;
+    }
+    public int getSolicitudesAnulacionPendientes(){
+        return solicitudesAnulacionPendientes;
+    }
+    public static class UsuariosResumen{
+        private int tecnicos,solicitantes,administradores;
+        public int getTecnicos(){
+            return tecnicos;
+        }
+        public int getSolicitantes(){
+            return solicitantes;
+        }
+        public int getAdministradores(){
+            return administradores;
+        }
+    }
+}

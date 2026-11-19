@@ -1,14 +1,10 @@
 package com.example.incidentapp.util;
-
 import com.example.incidentapp.model.MensajeResponse;
 import com.google.gson.Gson;
-
 import java.io.IOException;
-
 import retrofit2.Response;
 
 public final class ApiErrorUtils {
-
     private ApiErrorUtils() {
     }
 
@@ -23,8 +19,7 @@ public final class ApiErrorUtils {
             if (error != null && error.getMensaje() != null && !error.getMensaje().trim().isEmpty()) {
                 return error.getMensaje();
             }
-        } catch (IOException | RuntimeException ignored) {
-        }
+        } catch (IOException | RuntimeException ignored) {}
 
         return mensajePorDefecto;
     }

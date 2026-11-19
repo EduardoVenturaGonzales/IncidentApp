@@ -1,12 +1,9 @@
 package com.example.incidentapp.worker;
-
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
 import com.example.incidentapp.local.AppDatabase;
 import com.example.incidentapp.local.entity.SolicitudPendienteEntity;
 import com.example.incidentapp.model.RegistroIncidenteResponse;
@@ -14,18 +11,15 @@ import com.example.incidentapp.repository.IncidenteRepository;
 import com.example.incidentapp.session.SessionManager;
 import com.example.incidentapp.util.AppEvents;
 import com.example.incidentapp.util.MultipartUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import okhttp3.MultipartBody;
 import retrofit2.Response;
 
 public class SincronizarPendientesWorker extends Worker {
     public SincronizarPendientesWorker(@NonNull Context context, @NonNull WorkerParameters params) { super(context, params); }
-
     @NonNull
     @Override
     public Result doWork() {
@@ -36,8 +30,7 @@ public class SincronizarPendientesWorker extends Worker {
         boolean huboErrorTemporal = false;
         boolean sincronizoAlgo = false;
         try {
-            List<SolicitudPendienteEntity> items = AppDatabase.get().solicitudPendienteDao()
-                    .listar(SessionManager.getInstance().getIdUsuario());
+            List<SolicitudPendienteEntity> items = AppDatabase.get().solicitudPendienteDao().listar(SessionManager.getInstance().getIdUsuario());
             IncidenteRepository repo = new IncidenteRepository();
 
             for (SolicitudPendienteEntity e : items) {
@@ -64,10 +57,8 @@ public class SincronizarPendientesWorker extends Worker {
                         borrarSiExiste(e.foto2Path);
                         sincronizoAlgo = true;
                     } else if (r.code() >= 500 || r.code() == 408 || r.code() == 429) {
-                        // Error temporal: no bloquea los demás, pero WorkManager volverá a intentar.
                         huboErrorTemporal = true;
                     }
-                    // 4xx permanente: se conserva para revisión, pero NO detiene los demás pendientes.
                 } catch (Exception itemError) {
                     huboErrorTemporal = true;
                 }

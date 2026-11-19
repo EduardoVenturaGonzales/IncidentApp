@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 public class ResponderAnulacionRequest {
     private final String accion;
     private final String comentario;

@@ -1,30 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/incidentapp_light" android:fillViewport="true" tools:context=".ui.gestion.RegistrarActivoFragment">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnVolver" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Volver" android:textAllCaps="false" android:textColor="@color/incidentapp_red" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="end" android:text="Registrar Activo TI" android:textColor="@color/incidentapp_dark" android:textSize="22sp" android:textStyle="bold" />
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/incidentapp_light"
+    android:fillViewport="true"
+    tools:context=".ui.gestion.RegistrarActivoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVolver"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volver"
+                android:textAllCaps="false"
+                android:textColor="@color/incidentapp_red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="Registrar Activo TI"
+                android:textColor="@color/incidentapp_dark"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
-        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardCornerRadius="16dp" app:cardBackgroundColor="@color/white">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilNombre" style="@style/Widget.Material3.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nombre del equipo">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etNombre" android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNombre"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre del equipo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilTipo" style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Tipo">
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/actTipo" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="none" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilTipo"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Tipo">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actTipo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilEstado" style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Estado">
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/actEstado" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="none" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEstado"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Estado">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actEstado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="Fotos del equipo (máximo 2)" android:textColor="@color/incidentapp_dark" android:textStyle="bold" />
-                <TextView android:id="@+id/tvCantidadFotos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0 / 2 fotos seleccionadas" android:textColor="@color/text_secondary" />
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnTomarFoto" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tomar foto" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_dark" />
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btnSeleccionarFotos" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:layout_weight="1" android:text="Seleccionar fotos" android:textAllCaps="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="Fotos del equipo (máximo 2)"
+                    android:textColor="@color/incidentapp_dark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCantidadFotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="0 / 2 fotos seleccionadas"
+                    android:textColor="@color/text_secondary" />
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTomarFoto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tomar foto"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/incidentapp_dark" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSeleccionarFotos"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:text="Seleccionar fotos"
+                        android:textAllCaps="false" />
+
                 </LinearLayout>
-                <LinearLayout android:id="@+id/contenedorPreviews" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal" />
-                <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:visibility="gone" app:indicatorColor="@color/incidentapp_red" />
-                <com.google.android.material.button.MaterialButton android:id="@+id/btnRegistrar" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="16dp" android:text="Registrar y generar QR" android:textAllCaps="false" app:backgroundTint="@color/incidentapp_red" />
+
+                <LinearLayout
+                    android:id="@+id/contenedorPreviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/incidentapp_red" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegistrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Registrar y generar QR"
+                    android:textAllCaps="false"
+                    app:backgroundTint="@color/incidentapp_red" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

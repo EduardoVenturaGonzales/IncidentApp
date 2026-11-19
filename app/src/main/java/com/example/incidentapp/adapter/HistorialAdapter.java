@@ -1,21 +1,15 @@
 package com.example.incidentapp.adapter;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.incidentapp.databinding.ItemHistorialBinding;
 import com.example.incidentapp.model.Historial;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.HistorialViewHolder> {
-
     private final List<Historial> lista = new ArrayList<>();
-
     public void setHistorial(List<Historial> historial) {
         lista.clear();
         if (historial != null) {
@@ -60,10 +54,8 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.Hist
 
             binding.tvCambio.setText(cambio);
             binding.tvComentario.setText(item.getComentario());
-            binding.tvUsuario.setText(
-                    (item.getUsuario() == null ? "Usuario" : item.getUsuario())
-                            + (item.getRol() == null ? "" : " · " + item.getRol())
-            );
+            binding.tvUsuario.setText((item.getUsuario() == null ? "Usuario" : item.getUsuario()) +
+                    (item.getRol() == null ? "" : " · " + item.getRol()));
             binding.tvFecha.setText(item.getFechaCambio() == null ? "" : item.getFechaCambio());
         }
     }

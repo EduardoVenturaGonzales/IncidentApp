@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Sucursal {
@@ -16,20 +15,42 @@ public class Sucursal {
     @SerializedName("incidentes_abiertos")
     private int incidentesAbiertos;
 
-    public int getId() { return id; }
-    public String getNombre() { return nombre; }
-    public String getDireccion() { return direccion; }
-    public Double getLatitud() { return latitud; }
-    public Double getLongitud() { return longitud; }
-    public String getEmpresa() { return empresa; }
-    public int getIdEmpresa() { return idEmpresa; }
-    public int getIncidentesAbiertos() { return incidentesAbiertos; }
-
-    public void setId(int v) { id = v; }
-    public void setNombre(String v) { nombre = v; }
-    public void setDireccion(String v) { direccion = v; }
-    public void setIdEmpresa(int v) { idEmpresa = v; }
-
+    public int getId() {
+        return id;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getDireccion() {
+        return direccion;
+    }
+    public Double getLatitud() {
+        return latitud;
+    }
+    public Double getLongitud() {
+        return longitud;
+    }
+    public String getEmpresa() {
+        return empresa;
+    }
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+    public int getIncidentesAbiertos() {
+        return incidentesAbiertos;
+    }
+    public void setId(int v) {
+        id = v;
+    }
+    public void setNombre(String v) {
+        nombre = v;
+    }
+    public void setDireccion(String v) {
+        direccion = v;
+    }
+    public void setIdEmpresa(int v) {
+        idEmpresa = v;
+    }
     @Override
     public String toString() {
         return nombre;

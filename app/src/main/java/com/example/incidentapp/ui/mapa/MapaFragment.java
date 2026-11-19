@@ -1,15 +1,12 @@
 package com.example.incidentapp.ui.mapa;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentMapaBinding;
 import com.example.incidentapp.model.Sucursal;
@@ -26,15 +23,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Collections;
 import java.util.List;
 
-public class MapaFragment extends Fragment implements
-        OnMapReadyCallback,
-        GoogleMap.OnMapClickListener,
-        GoogleMap.OnMapLongClickListener {
-
+public class MapaFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
     private FragmentMapaBinding binding;
     private MapaViewModel viewModel;
     private GoogleMap mMap;
@@ -44,11 +36,7 @@ public class MapaFragment extends Fragment implements
     private java.util.List<TecnicoUbicacion> tecnicos = java.util.Collections.emptyList();
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMapaBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -56,9 +44,7 @@ public class MapaFragment extends Fragment implements
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         viewModel = new ViewModelProvider(this).get(MapaViewModel.class);
-
         String rol = SessionManager.getInstance().getRol();
         esAdministrador = "Administrador".equalsIgnoreCase(rol);
         esDesarrollador = "Desarrollador".equalsIgnoreCase(rol);
@@ -71,9 +57,7 @@ public class MapaFragment extends Fragment implements
             binding.checkMostrarTodas.setVisibility(View.VISIBLE);
             binding.checkMostrarTodas.setChecked(false);
             binding.checkMostrarTodas.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                binding.tvTituloMapa.setText(
-                        isChecked ? "Sucursales de la empresa" : "Mi sucursal"
-                );
+                binding.tvTituloMapa.setText(isChecked ? "Sucursales de la empresa" : "Mi sucursal");
                 viewModel.cargarSucursales(isChecked);
             });
         } else {
@@ -90,10 +74,7 @@ public class MapaFragment extends Fragment implements
 
         if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance();
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.mapContainer, mapFragment)
-                    .commitNow();
+            getChildFragmentManager().beginTransaction().replace(R.id.mapContainer, mapFragment).commitNow();
         }
 
         mapFragment.getMapAsync(this);
@@ -106,9 +87,7 @@ public class MapaFragment extends Fragment implements
         viewModel.getTecnicos().observe(getViewLifecycleOwner(), lista -> { tecnicos = lista == null ? java.util.Collections.emptyList() : lista; dibujarSucursales(); });
 
         viewModel.getLoading().observe(getViewLifecycleOwner(), cargando ->
-                binding.progressMapa.setVisibility(
-                        Boolean.TRUE.equals(cargando) ? View.VISIBLE : View.GONE
-                )
+                binding.progressMapa.setVisibility(Boolean.TRUE.equals(cargando) ? View.VISIBLE : View.GONE)
         );
 
         viewModel.getMensaje().observe(getViewLifecycleOwner(), evento -> {
@@ -166,21 +145,11 @@ public class MapaFragment extends Fragment implements
                 continue;
             }
 
-            LatLng ubicacion = new LatLng(
-                    sucursal.getLatitud(),
-                    sucursal.getLongitud()
-            );
+            LatLng ubicacion = new LatLng(sucursal.getLatitud(), sucursal.getLongitud());
 
-            String snippet = sucursal.getDireccion()
-                    + " · Incidentes abiertos: "
-                    + sucursal.getIncidentesAbiertos();
+            String snippet = sucursal.getDireccion() + " · Incidentes abiertos: " + sucursal.getIncidentesAbiertos();
 
-            Marker marker = mMap.addMarker(
-                    new MarkerOptions()
-                            .position(ubicacion)
-                            .title(sucursal.getNombre())
-                            .snippet(snippet)
-            );
+            Marker marker = mMap.addMarker(new MarkerOptions().position(ubicacion).title(sucursal.getNombre()).snippet(snippet));
 
             if (marker != null) {
                 marker.setTag(sucursal);
@@ -205,7 +174,6 @@ public class MapaFragment extends Fragment implements
                             100
                     ));
                 } catch (Exception ignored) {
-                    // Si el mapa aún no terminó de medir, se mantiene la cámara actual.
                 }
             });
         }
@@ -233,15 +201,10 @@ public class MapaFragment extends Fragment implements
                 sucursal.getEmpresa() == null ? "" : sucursal.getEmpresa()
         );
         binding.tvDireccionMapa.setText(sucursal.getDireccion());
-        binding.tvIncidentesMapa.setText(
-                "Incidentes abiertos: " + sucursal.getIncidentesAbiertos()
-        );
+        binding.tvIncidentesMapa.setText("Incidentes abiertos: " + sucursal.getIncidentesAbiertos());
 
         if (sucursal.getLatitud() != null && sucursal.getLongitud() != null) {
-            binding.tvCoordenadasMapa.setText(
-                    "Latitud: " + sucursal.getLatitud()
-                            + "   Longitud: " + sucursal.getLongitud()
-            );
+            binding.tvCoordenadasMapa.setText("Latitud: " + sucursal.getLatitud() + "   Longitud: " + sucursal.getLongitud());
         } else {
             binding.tvCoordenadasMapa.setText("Coordenadas no disponibles");
         }

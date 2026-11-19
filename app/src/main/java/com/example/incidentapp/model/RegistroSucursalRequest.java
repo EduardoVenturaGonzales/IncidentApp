@@ -1,5 +1,4 @@
 package com.example.incidentapp.model;
-
 import com.google.gson.annotations.SerializedName;
 
 public class RegistroSucursalRequest {

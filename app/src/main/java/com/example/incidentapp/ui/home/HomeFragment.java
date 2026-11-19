@@ -1,11 +1,9 @@
 package com.example.incidentapp.ui.home;
-
 import android.Manifest;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.os.*;
 import android.view.*;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -13,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.FragmentHomeBinding;
 import com.example.incidentapp.model.Incidente;
@@ -23,7 +20,6 @@ import com.example.incidentapp.util.AppEvents;
 import com.example.incidentapp.util.TecnicoLocationManager;
 import com.example.incidentapp.viewmodel.HomeViewModel;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -31,8 +27,6 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
     private boolean esDesarrollador, esTecnico;
     private final Handler handler = new Handler(Looper.getMainLooper());
-
-    // Home se actualiza mientras está visible, sin obligar al Admin a cambiar de pantalla.
     private final Runnable poll = new Runnable() {
         @Override public void run() {
             if (isAdded() && binding != null) {
@@ -51,13 +45,10 @@ public class HomeFragment extends Fragment {
             }
         }
     };
-
     private boolean receiverRegistrado = false;
-
     private final ActivityResultLauncher<String[]> permisoUbicacion = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), r -> {
-                boolean ok = Boolean.TRUE.equals(r.get(Manifest.permission.ACCESS_FINE_LOCATION))
-                        || Boolean.TRUE.equals(r.get(Manifest.permission.ACCESS_COARSE_LOCATION));
+                boolean ok = Boolean.TRUE.equals(r.get(Manifest.permission.ACCESS_FINE_LOCATION)) || Boolean.TRUE.equals(r.get(Manifest.permission.ACCESS_COARSE_LOCATION));
                 if (ok) iniciarUbicacion();
                 else if (binding != null) Snackbar.make(binding.getRoot(), "La ubicación necesita permiso", Snackbar.LENGTH_LONG).show();
             });
@@ -147,7 +138,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void actualizarResumenListaLocal(List<Incidente> lista) {
-        // Solo sirve como respaldo offline; el resumen del servidor tiene prioridad cuando hay conexión.
         if (binding == null || lista == null) return;
         int abiertos=0, proceso=0, resueltos=0;
         for (Incidente i : lista) {
@@ -164,26 +154,37 @@ public class HomeFragment extends Fragment {
 
     private TecnicoLocationManager.Listener listenerUbicacion(){
         return new TecnicoLocationManager.Listener(){
-            public void onMensaje(String m){ if(binding!=null) Snackbar.make(binding.getRoot(),m,Snackbar.LENGTH_SHORT).show(); }
-            public void onEstado(boolean a){ if(binding!=null) actualizarBotonUbicacion(); }
+            public void onMensaje(String m){
+                if(binding!=null) Snackbar.make(binding.getRoot(),m,Snackbar.LENGTH_SHORT).show();
+            }
+            public void onEstado(boolean a){
+                if(binding!=null) actualizarBotonUbicacion();
+            }
         };
     }
 
     private void alternarUbicacion(){
         TecnicoLocationManager m=TecnicoLocationManager.get(requireContext());
-        if(m.isCompartiendo()){ m.detener(listenerUbicacion()); return; }
+        if(m.isCompartiendo()){
+            m.detener(listenerUbicacion());
+            return;
+        }
         if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             permisoUbicacion.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION});
         } else iniciarUbicacion();
     }
 
-    private void iniciarUbicacion(){ TecnicoLocationManager.get(requireContext()).iniciar(listenerUbicacion()); }
+    private void iniciarUbicacion(){
+        TecnicoLocationManager.get(requireContext()).iniciar(listenerUbicacion());
+    }
     private void actualizarBotonUbicacion(){
         if(binding!=null && esTecnico)
             binding.btnCompartirUbicacion.setText(TecnicoLocationManager.get(requireContext()).isCompartiendo()?"Dejar de compartir ubicación":"Compartir mi ubicación");
     }
-    private void nav(int id){ NavHostFragment.findNavController(this).navigate(id); }
+    private void nav(int id){
+        NavHostFragment.findNavController(this).navigate(id);
+    }
 
     @Override public void onResume(){
         super.onResume();
@@ -192,7 +193,8 @@ public class HomeFragment extends Fragment {
         if (!receiverRegistrado) {
             IntentFilter f = new IntentFilter(AppEvents.ACTION_SYNC_COMPLETADA);
             if (Build.VERSION.SDK_INT >= 33) requireContext().registerReceiver(syncReceiver, f, Context.RECEIVER_NOT_EXPORTED);
-            else requireContext().registerReceiver(syncReceiver, f);
+            else
+                ContextCompat.registerReceiver(requireContext(), syncReceiver, f, ContextCompat.RECEIVER_NOT_EXPORTED);
             receiverRegistrado = true;
         }
     }
@@ -201,10 +203,15 @@ public class HomeFragment extends Fragment {
         super.onPause();
         handler.removeCallbacks(poll);
         if (receiverRegistrado) {
-            try { requireContext().unregisterReceiver(syncReceiver); } catch (Exception ignored) {}
+            try {
+                requireContext().unregisterReceiver(syncReceiver);
+            } catch (Exception ignored) {}
             receiverRegistrado = false;
         }
     }
 
-    @Override public void onDestroyView(){ super.onDestroyView(); binding=null; }
+    @Override public void onDestroyView(){
+        super.onDestroyView();
+        binding=null;
+    }
 }

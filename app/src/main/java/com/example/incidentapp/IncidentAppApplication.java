@@ -1,7 +1,5 @@
 package com.example.incidentapp;
-
 import android.app.Application;
-
 import com.example.incidentapp.local.AppDatabase;
 import com.example.incidentapp.notifications.NotificationCenter;
 import com.example.incidentapp.session.SessionManager;
