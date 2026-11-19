@@ -1,3 +1,105 @@
 package com.example.incidentapp.notifications;
-import android.Manifest; import android.app.*; import android.content.*; import android.content.pm.PackageManager; import android.os.Build; import androidx.core.app.*; import androidx.core.content.ContextCompat; import com.example.incidentapp.MainActivity; import com.example.incidentapp.R; import com.example.incidentapp.model.*; import com.example.incidentapp.repository.NotificacionRepository; import com.example.incidentapp.session.SessionManager; import java.util.*; import retrofit2.*;
-public final class NotificationCenter { public static final String CHANNEL="incidentapp_eventos"; private NotificationCenter(){} public static void crearCanal(Context c){if(Build.VERSION.SDK_INT>=26){NotificationChannel ch=new NotificationChannel(CHANNEL,"Incidentes y avisos",NotificationManager.IMPORTANCE_DEFAULT);ch.setDescription("Avisos internos de IncidentApp");c.getSystemService(NotificationManager.class).createNotificationChannel(ch);}} public static void sincronizar(Context c){if(!SessionManager.getInstance().haySesion())return;new NotificacionRepository().obtenerNotificaciones(true,50).enqueue(new Callback<NotificacionesResponse>(){public void onResponse(Call<NotificacionesResponse> call,Response<NotificacionesResponse> r){if(!r.isSuccessful()||r.body()==null||r.body().getNotificaciones()==null)return;mostrarNuevas(c,r.body().getNotificaciones());}public void onFailure(Call<NotificacionesResponse> call,Throwable t){}});} private static void mostrarNuevas(Context c,List<Notificacion> ns){int uid=SessionManager.getInstance().getIdUsuario();android.content.SharedPreferences p=c.getSharedPreferences("incidentapp_notif_local",Context.MODE_PRIVATE);int last=p.getInt("last_"+uid,0),max=last;List<Notificacion> copia=new ArrayList<>(ns);Collections.reverse(copia);for(Notificacion n:copia){if(n.getId()>last){mostrar(c,n);max=Math.max(max,n.getId());}}if(max>last)p.edit().putInt("last_"+uid,max).apply();} private static void mostrar(Context c,Notificacion n){if(Build.VERSION.SDK_INT>=33&&ContextCompat.checkSelfPermission(c,Manifest.permission.POST_NOTIFICATIONS)!=PackageManager.PERMISSION_GRANTED)return;Intent i=new Intent(c,MainActivity.class);i.putExtra("id_incidente",n.getIdIncidente()==null?0:n.getIdIncidente());i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);PendingIntent pi=PendingIntent.getActivity(c,n.getId(),i,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);NotificationCompat.Builder b=new NotificationCompat.Builder(c,CHANNEL).setSmallIcon(R.drawable.ic_notification_2d).setContentTitle(n.getTitulo()).setContentText(n.getMensaje()).setStyle(new NotificationCompat.BigTextStyle().bigText(n.getMensaje())).setAutoCancel(true).setContentIntent(pi).setPriority(NotificationCompat.PRIORITY_DEFAULT);NotificationManagerCompat.from(c).notify(n.getId(),b.build());} }
+
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+
+import com.example.incidentapp.MainActivity;
+import com.example.incidentapp.R;
+import com.example.incidentapp.model.MensajeResponse;
+import com.example.incidentapp.model.Notificacion;
+import com.example.incidentapp.model.NotificacionesResponse;
+import com.example.incidentapp.repository.NotificacionRepository;
+import com.example.incidentapp.session.SessionManager;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public final class NotificationCenter {
+    // ID nuevo para que Android cree el canal con importancia HIGH aunque existiera el canal anterior.
+    private static final String CHANNEL = "incidentapp_alertas_v2";
+    private NotificationCenter() {}
+
+    public static void crearCanal(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel ch = new NotificationChannel(
+                    CHANNEL,
+                    "Alertas de incidentes",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            ch.setDescription("Avisos de nuevos incidentes, asignaciones y cambios de estado");
+            ch.enableVibration(true);
+            context.getSystemService(NotificationManager.class).createNotificationChannel(ch);
+        }
+    }
+
+    public static void sincronizar(Context context) {
+        if (!SessionManager.getInstance().haySesion()) return;
+        new NotificacionRepository().obtenerPendientesAndroid(30).enqueue(new Callback<NotificacionesResponse>() {
+            @Override public void onResponse(Call<NotificacionesResponse> call, Response<NotificacionesResponse> r) {
+                if (!r.isSuccessful() || r.body() == null || r.body().getNotificaciones() == null) return;
+                mostrarPendientes(context.getApplicationContext(), r.body().getNotificaciones());
+            }
+            @Override public void onFailure(Call<NotificacionesResponse> call, Throwable t) { }
+        });
+    }
+
+    private static void mostrarPendientes(Context context, List<Notificacion> lista) {
+        for (Notificacion n : lista) {
+            if (mostrar(context, n)) {
+                new NotificacionRepository().marcarEntregada(n.getId()).enqueue(new Callback<MensajeResponse>() {
+                    @Override public void onResponse(Call<MensajeResponse> call, Response<MensajeResponse> response) { }
+                    @Override public void onFailure(Call<MensajeResponse> call, Throwable t) { }
+                });
+            }
+        }
+    }
+
+    private static boolean mostrar(Context context, Notificacion n) {
+        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(
+                context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("id_incidente", n.getIdIncidente() == null ? 0 : n.getIdIncidente());
+        i.putExtra("tipo_notificacion", n.getTipo());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent pi = PendingIntent.getActivity(
+                context,
+                n.getId(),
+                i,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        NotificationCompat.Builder b = new NotificationCompat.Builder(context, CHANNEL)
+                .setSmallIcon(R.drawable.ic_notification_2d)
+                .setContentTitle(n.getTitulo())
+                .setContentText(n.getMensaje())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(n.getMensaje()))
+                .setAutoCancel(true)
+                .setContentIntent(pi)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE);
+        try {
+            NotificationManagerCompat.from(context).notify(n.getId(), b.build());
+            return true;
+        } catch (SecurityException ex) {
+            return false;
+        }
+    }
+}
