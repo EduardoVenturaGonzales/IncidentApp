@@ -6,4 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="text_secondary">#62666A</color>
+    <color name="incident_final_background">#FFF1F1</color>
+    <color name="incident_final_stroke">#E7A0A0</color>
+    <color name="incident_final_text">#B3261E</color>
 </resources>

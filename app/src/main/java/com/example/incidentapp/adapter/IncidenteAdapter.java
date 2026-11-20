@@ -1,57 +1,168 @@
 package com.example.incidentapp.adapter;
 import android.graphics.Color;
-import android.os.*;
-import android.view.*;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.incidentapp.R;
 import com.example.incidentapp.databinding.ItemIncidenteBinding;
-import com.example.incidentapp.model.Incidente;import com.example.incidentapp.util.SlaUtils;import java.util.*;
-public class IncidenteAdapter extends RecyclerView.Adapter<IncidenteAdapter.VH>{
-    public interface OnIncidenteClickListener{
-        void onClick(Incidente i);
-    }private final List<Incidente> lista=new ArrayList<>();
+import com.example.incidentapp.model.Incidente;
+import com.example.incidentapp.util.SlaUtils;
+import java.util.ArrayList;
+import java.util.List;
+
+public class IncidenteAdapter extends RecyclerView.Adapter<IncidenteAdapter.VH> {
+    public interface OnIncidenteClickListener {
+        void onClick(Incidente incidente);
+    }
+
+    private final List<Incidente> lista = new ArrayList<>();
     private final OnIncidenteClickListener listener;
-    private final Handler h=new Handler(Looper.getMainLooper());
-    private final Runnable tick=new Runnable(){
-        public void run(){notifyDataSetChanged();h.postDelayed(this,1000);}
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
+    private final Runnable tick = new Runnable() {
+        @Override
+        public void run() {
+            notifyDataSetChanged();
+            handler.postDelayed(this, 1000);
+        }
     };
-    public IncidenteAdapter(OnIncidenteClickListener l){
-        listener=l;
+
+    public IncidenteAdapter(OnIncidenteClickListener listener) {
+        this.listener = listener;
     }
-    public void setIncidentes(List<Incidente> x){
-        lista.clear();if(x!=null)lista.addAll(x);notifyDataSetChanged();
+
+    public void setIncidentes(List<Incidente> incidentes) {
+        lista.clear();
+        if (incidentes != null) {
+            lista.addAll(incidentes);
+        }
+        notifyDataSetChanged();
     }
-    @NonNull public VH onCreateViewHolder(@NonNull ViewGroup p,int v){
-        return new VH(ItemIncidenteBinding.inflate(LayoutInflater.from(p.getContext()),p,false));
+
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemIncidenteBinding binding = ItemIncidenteBinding.inflate(
+                LayoutInflater.from(parent.getContext()),
+                parent,
+                false
+        );
+        return new VH(binding);
     }
-    public void onBindViewHolder(@NonNull VH x, int pos){
-        x.bind(lista.get(pos));
+
+    @Override
+    public void onBindViewHolder(@NonNull VH holder, int position) {
+        holder.bind(lista.get(position));
     }
-    public int getItemCount(){
+
+    @Override
+    public int getItemCount() {
         return lista.size();
     }
-    @Override public void onAttachedToRecyclerView(@NonNull RecyclerView r){
-        super.onAttachedToRecyclerView(r);h.removeCallbacks(tick);h.post(tick);
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        handler.removeCallbacks(tick);
+        handler.post(tick);
     }
-    @Override public void onDetachedFromRecyclerView(@NonNull RecyclerView r){
-        super.onDetachedFromRecyclerView(r);h.removeCallbacks(tick);
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        handler.removeCallbacks(tick);
     }
-    class VH extends RecyclerView.ViewHolder{
-        final ItemIncidenteBinding b;VH(ItemIncidenteBinding x){
-            super(x.getRoot());b=x;
-        }void bind(Incidente i){
-            b.tvTicket.setText("Incidente #"+i.getId());
-            b.tvTitulo.setText(i.getTitulo());
-            b.tvEstado.setText(i.getEstado());
-            b.tvPrioridad.setText(i.getPrioridad());
-            b.tvFecha.setText(i.getFechaRegistro()==null?"Sin fecha":i.getFechaRegistro());
-            b.tvTecnico.setText(i.getTecnico()==null||i.getTecnico().trim().isEmpty()?"Sin técnico asignado":i.getTecnico());
-            int c="Alta".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#C62828"):"Media".equalsIgnoreCase(i.getPrioridad())?Color.parseColor("#EF6C00"):Color.parseColor("#2E7D32");
-            b.tvPrioridad.setTextColor(c);
-            SlaUtils.Estado s=SlaUtils.calcular(i);
-            b.tvSla.setText(s.texto);
-            b.tvSla.setTextColor(s.color==SlaUtils.ColorEstado.ROJO?Color.parseColor("#C62828"):s.color==SlaUtils.ColorEstado.AMARILLO?Color.parseColor("#EF6C00"):s.color==SlaUtils.ColorEstado.VERDE?Color.parseColor("#2E7D32"):Color.GRAY);
-            b.getRoot().setOnClickListener(v->listener.onClick(i));
+
+    class VH extends RecyclerView.ViewHolder {
+        private final ItemIncidenteBinding binding;
+
+        VH(ItemIncidenteBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        void bind(Incidente incidente) {
+            binding.tvTicket.setText("Incidente #" + incidente.getId());
+            binding.tvTitulo.setText(incidente.getTitulo());
+            binding.tvEstado.setText(incidente.getEstado());
+            binding.tvPrioridad.setText(incidente.getPrioridad());
+            binding.tvFecha.setText(
+                    incidente.getFechaRegistro() == null
+                            ? "Sin fecha"
+                            : incidente.getFechaRegistro()
+            );
+            binding.tvTecnico.setText(
+                    incidente.getTecnico() == null || incidente.getTecnico().trim().isEmpty()
+                            ? "Sin técnico asignado"
+                            : incidente.getTecnico()
+            );
+
+            aplicarColorPrioridad(incidente);
+            aplicarSla(incidente);
+            aplicarIndicadorEstadoFinal(incidente);
+
+            binding.getRoot().setOnClickListener(v -> listener.onClick(incidente));
+        }
+
+        private void aplicarColorPrioridad(Incidente incidente) {
+            int color;
+
+            if ("Alta".equalsIgnoreCase(incidente.getPrioridad())) {
+                color = Color.parseColor("#C62828");
+            } else if ("Media".equalsIgnoreCase(incidente.getPrioridad())) {
+                color = Color.parseColor("#EF6C00");
+            } else {
+                color = Color.parseColor("#2E7D32");
+            }
+
+            binding.tvPrioridad.setTextColor(color);
+        }
+
+        private void aplicarSla(Incidente incidente) {
+            SlaUtils.Estado sla = SlaUtils.calcular(incidente);
+            binding.tvSla.setText(sla.texto);
+
+            int color;
+            if (sla.color == SlaUtils.ColorEstado.ROJO) {
+                color = Color.parseColor("#C62828");
+            } else if (sla.color == SlaUtils.ColorEstado.AMARILLO) {
+                color = Color.parseColor("#EF6C00");
+            } else if (sla.color == SlaUtils.ColorEstado.VERDE) {
+                color = Color.parseColor("#2E7D32");
+            } else {
+                color = Color.GRAY;
+            }
+
+            binding.tvSla.setTextColor(color);
+        }
+
+        private void aplicarIndicadorEstadoFinal(Incidente incidente) {
+            String estado = incidente.getEstado();
+            boolean indicadorRojo = "No Resuelto".equalsIgnoreCase(estado) || "Anulado".equalsIgnoreCase(estado);
+
+            if (indicadorRojo) {
+                binding.getRoot().setCardBackgroundColor(
+                        ContextCompat.getColor(binding.getRoot().getContext(), R.color.incident_final_background)
+                );
+                binding.getRoot().setStrokeColor(
+                        ContextCompat.getColor(binding.getRoot().getContext(), R.color.incident_final_stroke)
+                );
+                binding.tvEstado.setTextColor(
+                        ContextCompat.getColor(binding.getRoot().getContext(), R.color.incident_final_text)
+                );
+            } else {
+                binding.getRoot().setCardBackgroundColor(
+                        ContextCompat.getColor(binding.getRoot().getContext(), R.color.white)
+                );
+                binding.getRoot().setStrokeColor(Color.parseColor("#D7DCE0"));
+                binding.tvEstado.setTextColor(
+                        ContextCompat.getColor(binding.getRoot().getContext(), R.color.incidentapp_dark)
+                );
+            }
         }
     }
 }
